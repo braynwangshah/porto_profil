@@ -96,7 +96,7 @@ export default function Home() {
             </Link>
 
             <Link
-              href="/dimas/portfolio"
+              href="/dimas/porto"
               className="flex-1 rounded-xl border border-green-500 py-3 text-center hover:bg-green-500"
             >
               Portfolio
