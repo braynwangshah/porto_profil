@@ -53,23 +53,38 @@ export default function PortoPage() {
           animation: fadeInUp 0.7s ease-out forwards;
         }
       `}</style>
+      
 
+          {/* Tombol Kembali */}
+    <div className="absolute top-6 left-6 z-50">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300"
+      >
+        ← Kembali ke Home
+      </Link>
+    </div>
       {/* Navbar - konsisten dengan halaman profile */}
       <nav className="anim-fade-down flex items-center justify-between px-6 py-6 md:px-16">
-        <span className="text-xl font-light tracking-[0.2em]">YOURNAME</span>
+        <span className="text-xl font-light tracking-[0.2em]"></span>
 
         <ul className="hidden gap-8 text-sm font-light tracking-wide text-neutral-300 md:flex">
-          <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-            <Link href="/profile">Home</Link>
-          </li>
-          <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-            <Link href="/profile">About</Link>
-          </li>
-          <li className="cursor-pointer text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">Portfolio</li>
-          <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-            <Link href="/contact">Contact</Link>
-          </li>
-        </ul>
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/">Home</Link>
+  </li>
+
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/fadhil/profile">About</Link>
+  </li>
+
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/fadhil/porto">Portfolio</Link>
+  </li>
+
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/fadhil/contact">Contact</Link>
+  </li>
+</ul>
 
         <button className="flex flex-col gap-1.5 md:hidden" aria-label="Open menu">
           <span className="h-px w-6 bg-white" />

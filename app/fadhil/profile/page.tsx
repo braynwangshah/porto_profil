@@ -67,7 +67,16 @@ export default function ProfilePage() {
 
       {/* Dark overlay, stronger on the left so text stays readable */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/70 to-black/30" />
-
+      
+          {/* Tombol Kembali */}
+    <div className="absolute top-6 left-6 z-50">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300"
+      >
+        ← Kembali ke Home
+      </Link>
+    </div>
       {/* Content wrapper */}
       <div className="relative z-10 flex min-h-screen flex-col">
         {/* Navbar */}
@@ -77,15 +86,22 @@ export default function ProfilePage() {
           </span>
 
           <ul className="hidden gap-8 text-sm font-light tracking-wide text-neutral-300 md:flex">
-            <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">Home</li>
-            <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">About</li>
-            <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-              <Link href="/porto">Portfolio</Link>
-            </li>
-            <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/">Home</Link>
+  </li>
+
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/fadhil/profile">About</Link>
+  </li>
+
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/fadhil/porto">Portfolio</Link>
+  </li>
+
+  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
+    <Link href="/fadhil/contact">Contact</Link>
+  </li>
+</ul>
 
           {/* Mobile menu button (icon only, hook up state if you need it to open) */}
           <button className="flex flex-col gap-1.5 md:hidden" aria-label="Open menu">
