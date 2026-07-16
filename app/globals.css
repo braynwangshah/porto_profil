@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+/* Aktifkan dark mode berdasarkan class */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -6,7 +6,7 @@ export default function Home() {
       {/* Navbar */}
       <nav className="flex items-center justify-between px-12 py-6 border-b border-slate-800">
         <h1 className="text-3xl font-bold text-cyan-400">
-          Portfolio Team
+          Portofolio Team
         </h1>
 
         <p className="text-gray-400">
@@ -50,17 +50,10 @@ export default function Home() {
           <div className="flex gap-3 p-8">
 
             <Link
-              href="/brayn/profile"
-              className="flex-1 rounded-xl bg-cyan-500 py-3 text-center hover:bg-cyan-600"
-            >
-              Profile
-            </Link>
-
-            <Link
-              href="/brayn/portfolio"
-              className="flex-1 rounded-xl border border-cyan-500 py-3 text-center hover:bg-cyan-500"
-            >
-              Portfolio
+        href="/brayn"
+        className="flex-1 rounded-xl bg-cyan-500 py-3 text-center hover:bg-cyan-600"
+    >
+            Masuk CV
             </Link>
 
           </div>
@@ -89,17 +82,17 @@ export default function Home() {
           <div className="flex gap-3 p-8">
 
             <Link
-              href="/dimas/profile"
+              href="/dimas/"
               className="flex-1 rounded-xl bg-green-500 py-3 text-center hover:bg-green-600"
             >
               Profile
             </Link>
 
             <Link
-              href="/dimas/portfolio"
+              href="/dimas/porto"
               className="flex-1 rounded-xl border border-green-500 py-3 text-center hover:bg-green-500"
             >
-              Portfolio
+              Portofolio
             </Link>
 
           </div>
