@@ -82,7 +82,7 @@ export default function Home() {
           <div className="flex gap-3 p-8">
 
             <Link
-              href="/dimas/"
+              href="/dimas/profile"
               className="flex-1 rounded-xl bg-green-500 py-3 text-center hover:bg-green-600"
             >
               Profile
