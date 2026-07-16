@@ -3,8 +3,9 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
+
       {/* Navbar */}
-      <nav className="flex items-center justify-between px-12 py-6 border-b border-slate-800">
+      <nav className="flex items-center justify-between border-b border-slate-800 px-12 py-6">
         <h1 className="text-3xl font-bold text-cyan-400">
           Portofolio Team
         </h1>
@@ -15,7 +16,7 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="text-center mt-16">
+      <section className="mt-16 text-center">
         <h1 className="text-5xl font-bold">
           Welcome
         </h1>
@@ -25,56 +26,54 @@ export default function Home() {
         </p>
       </section>
 
-      {/* Card */}
-      <section className="mt-16 flex justify-center gap-10 flex-wrap">
+      {/* Cards */}
+      <section className="mt-16 flex flex-wrap justify-center gap-10">
 
-        {/* Brayn */}
-        <div className="w-80 rounded-3xl bg-slate-900 shadow-lg hover:scale-105 duration-300">
+        {/* ================= Brayn ================= */}
+        <div className="w-80 rounded-3xl border border-slate-800 bg-slate-900 shadow-xl transition duration-300 hover:-translate-y-2 hover:border-cyan-400/50">
 
           <img
             src="/brayn.jpg"
-            className="w-40 h-40 rounded-full mx-auto mt-8 border-4 border-cyan-400 object-cover"
+            className="mx-auto mt-8 h-40 w-40 rounded-full border-4 border-cyan-400 object-cover"
             alt="Brayn"
           />
 
-          <div className="text-center mt-6">
+          <div className="mt-6 text-center">
             <h2 className="text-3xl font-bold">
               Brayn
             </h2>
 
-            <p className="text-gray-400 mt-2">
+            <p className="mt-2 text-gray-400">
               Full Stack Developer
             </p>
           </div>
 
-          <div className="flex gap-3 p-8">
-
+          <div className="p-8">
             <Link
-        href="/brayn"
-        className="flex-1 rounded-xl bg-cyan-500 py-3 text-center hover:bg-cyan-600"
-    >
-            Masuk CV
+              href="/brayn"
+              className="block rounded-xl bg-cyan-500 py-3 text-center font-medium transition hover:bg-cyan-600"
+            >
+              Masuk CV
             </Link>
-
           </div>
 
         </div>
 
-        {/* Dimas */}
-        <div className="w-80 rounded-3xl bg-slate-900 shadow-lg hover:scale-105 duration-300">
+        {/* ================= Dimas ================= */}
+        <div className="w-80 rounded-3xl border border-slate-800 bg-slate-900 shadow-xl transition duration-300 hover:-translate-y-2 hover:border-green-400/50">
 
           <img
             src="/dimas.jpg"
-            className="w-40 h-40 rounded-full mx-auto mt-8 border-4 border-green-400 object-cover"
+            className="mx-auto mt-8 h-40 w-40 rounded-full border-4 border-green-400 object-cover"
             alt="Dimas"
           />
 
-          <div className="text-center mt-6">
+          <div className="mt-6 text-center">
             <h2 className="text-3xl font-bold">
               Dimas
             </h2>
 
-            <p className="text-gray-400 mt-2">
+            <p className="mt-2 text-gray-400">
               UI / UX Designer
             </p>
           </div>
@@ -83,14 +82,53 @@ export default function Home() {
 
             <Link
               href="/dimas/profile"
-              className="flex-1 rounded-xl bg-green-500 py-3 text-center hover:bg-green-600"
+              className="flex-1 rounded-xl bg-green-500 py-3 text-center font-medium transition hover:bg-green-600"
             >
               Profile
             </Link>
 
             <Link
               href="/dimas/porto"
-              className="flex-1 rounded-xl border border-green-500 py-3 text-center hover:bg-green-500"
+              className="flex-1 rounded-xl border border-green-500 py-3 text-center font-medium transition hover:bg-green-500"
+            >
+              Portofolio
+            </Link>
+
+          </div>
+
+        </div>
+
+        {/* ================= Fadhil ================= */}
+        <div className="w-80 rounded-3xl border border-slate-800 bg-slate-900 shadow-xl transition duration-300 hover:-translate-y-2 hover:border-purple-400/50">
+
+          <img
+            src="/fadhil.jpg"
+            className="mx-auto mt-8 h-40 w-40 rounded-full border-4 border-purple-400 object-cover"
+            alt="Fadhil"
+          />
+
+          <div className="mt-6 text-center">
+            <h2 className="text-3xl font-bold">
+              Fadhil
+            </h2>
+
+            <p className="mt-2 text-gray-400">
+              Frontend Developer
+            </p>
+          </div>
+
+          <div className="flex gap-3 p-8">
+
+            <Link
+              href="/fadhil/profile"
+              className="flex-1 rounded-xl bg-purple-500 py-3 text-center font-medium transition hover:bg-purple-600"
+            >
+              Profile
+            </Link>
+
+            <Link
+              href="/fadhil/porto"
+              className="flex-1 rounded-xl border border-purple-500 py-3 text-center font-medium transition hover:bg-purple-500"
             >
               Portofolio
             </Link>
@@ -100,6 +138,7 @@ export default function Home() {
         </div>
 
       </section>
+
     </main>
   );
 }
