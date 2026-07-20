@@ -119,7 +119,7 @@ export default function Hero() {
           animate-[fadeUp_1.4s_ease]
           "
         >
-          Halo! Saya <strong>Brayn Richard Wangshah</strong>, seorang siswa
+          Halo! Saya seorang siswa
           kelas XII jurusan Rekayasa Perangkat Lunak yang berfokus pada
           pengembangan website dan aplikasi mobile. Saya memiliki pengalaman
           membangun proyek aplikasi menggunakan <strong>Javascript</strong>,
