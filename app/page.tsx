@@ -85,7 +85,7 @@ export default function Home() {
 
           <div className="pt-10">
             <img
-              src="/dimas.jpg"
+              src="/fotodimas.png"
               alt="Dimas"
               className="mx-auto h-40 w-40 rounded-full border-4 border-green-400 object-cover shadow-[0_0_35px_rgba(74,222,128,.35)] transition duration-500 group-hover:scale-105"
             />
