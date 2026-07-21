@@ -250,7 +250,7 @@ export default function Porto() {
 
       </div>
 
-      <div className="flex h-[290px] flex-col p-7">
+      <div className="flex min-h-[360px] flex-col p-7">
 
         <h3 className="text-2xl font-bold">
           Matrix Company Profile
@@ -286,8 +286,8 @@ export default function Porto() {
 
     </div>
 
-    {/* ================= Project 2 ================= */}
-    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-400/50 hover:shadow-[0_0_50px_rgba(34,211,238,0.15)]">
+        {/* ================= Project 2 ================= */}
+    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-purple-400/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.18)]">
 
       <div className="relative h-60 overflow-hidden">
 
@@ -306,7 +306,7 @@ export default function Porto() {
 
       </div>
 
-      <div className="flex h-[290px] flex-col p-7">
+      <div className="flex min-h-[360px] flex-col p-7">
 
         <h3 className="text-2xl font-bold">
           Personal Portfolio
@@ -328,7 +328,7 @@ export default function Porto() {
           </span>
 
           <span className="rounded-full bg-purple-500/10 px-3 py-1 text-sm text-purple-300">
-            Tailwind
+            Tailwind CSS
           </span>
 
         </div>
@@ -337,17 +337,17 @@ export default function Porto() {
           href="https://portofllai.lovable.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-cyan-500 py-3 font-semibold text-black transition-all duration-300 hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/40"
+          className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-purple-500 py-3 font-semibold text-white transition-all duration-300 hover:bg-purple-400 hover:shadow-lg hover:shadow-purple-500/40"
         >
-          Lihat Project 
+          Lihat Project →
         </a>
 
       </div>
 
     </div>
 
-    {/* ================= Project 3 ================= */}
-    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-400/50 hover:shadow-[0_0_50px_rgba(34,211,238,0.15)]">
+        {/* ================= Project 3 ================= */}
+    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-red-500/50 hover:shadow-[0_0_50px_rgba(239,68,68,0.20)]">
 
       <div className="relative h-60 overflow-hidden">
 
@@ -358,7 +358,7 @@ export default function Porto() {
           className="object-cover transition duration-700 group-hover:scale-110"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/10 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/10 to-transparent" />
 
         <span className="absolute left-5 top-5 rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white">
           Inventory System
@@ -366,7 +366,7 @@ export default function Porto() {
 
       </div>
 
-      <div className="flex h-[290px] flex-col p-7">
+      <div className="flex min-h-[360px] flex-col p-7">
 
         <h3 className="text-2xl font-bold">
           RMSTORE Inventory
@@ -397,9 +397,127 @@ export default function Porto() {
           href="https://rmstore.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-cyan-500 py-3 font-semibold text-black transition-all duration-300 hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/40"
+          className="mt-7 flex w-full items-center justify-center gap-2 rounded-2xl bg-red-500 py-3 font-semibold text-white transition-all duration-300 hover:bg-red-400 hover:shadow-lg hover:shadow-red-500/40"
         >
-          Lihat Project 
+          Lihat Project →
+        </a>
+
+      </div>
+
+    </div>
+
+              {/* ================= Project 4 ================= */}
+    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-yellow-400/50 hover:shadow-[0_0_50px_rgba(250,204,21,0.18)]">
+
+      <div className="relative h-60 overflow-hidden">
+
+        <Image
+          src="/bbt.png"
+          alt="BOTTINGKU"
+          fill
+          className="object-cover transition duration-700 group-hover:scale-110"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/10 to-transparent" />
+
+        <span className="absolute left-5 top-5 rounded-full bg-yellow-400 px-3 py-1 text-xs font-semibold text-black">
+          Mobile Application
+        </span>
+
+      </div>
+
+      <div className="flex min-h-[360px] flex-col p-7">
+
+        <h3 className="text-2xl font-bold">
+          BOTTINGKU
+        </h3>
+
+        <p className="mt-3 flex-1 leading-7 text-gray-400">
+          Aplikasi mobile untuk membantu pengelolaan proses pernikahan adat Makassar
+  dengan tampilan modern dan pengalaman pengguna yang mudah digunakan.
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-2">
+
+          <span className="rounded-full bg-yellow-400/10 px-3 py-1 text-sm text-yellow-300">
+            Kotlin
+          </span>
+
+          <span className="rounded-full bg-yellow-400/10 px-3 py-1 text-sm text-yellow-300">
+            Jetpack Compose
+          </span>
+
+          <span className="rounded-full bg-yellow-400/10 px-3 py-1 text-sm text-yellow-300">
+            Android
+          </span>
+
+        </div>
+
+        <a
+          href="https://www.figma.com/design/DzN2obyDWvAiiQV1ut4Bbk/BOTTINGKU?node-id=0-1&t=Eu4k6fDOag1Ajplo-1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-7 flex w-full items-center justify-center rounded-2xl bg-yellow-400 py-3 font-semibold text-black transition-all duration-300 hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/40"
+        >
+          Lihat Project →
+        </a>
+
+      </div>
+
+    </div>
+
+    {/* ================= Project 5 ================= */}
+    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-green-400/60 hover:shadow-[0_0_60px_rgba(34,197,94,0.35)]">
+
+      <div className="relative h-60 overflow-hidden">
+
+        <Image
+          src="/bljr.png"
+          alt="BOTTINGKU"
+          fill
+          className="object-cover transition duration-700 group-hover:scale-110"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/10 to-transparent" />
+
+        <span className="absolute left-5 top-5 rounded-full bg-green-400 px-3 py-1 text-xs font-semibold text-black">
+          Website Course
+        </span>
+
+      </div>
+
+      <div className="flex min-h-[360px] flex-col p-7">
+
+        <h3 className="text-2xl font-bold">
+          BelajarKu
+        </h3>
+
+        <p className="mt-3 flex-1 leading-7 text-gray-400">
+          Website pembelajaran digital yang membantu siswa mengakses materi,
+  latihan, dan informasi belajar dengan tampilan modern serta mudah digunakan.
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-2">
+
+          <span className="rounded-full bg-green-400/10 px-3 py-1 text-sm text-green-300">
+            Next.js
+          </span>
+
+          <span className="rounded-full bg-green-400/10 px-3 py-1 text-sm text-green-300">
+            Tailwind CSS
+          </span>
+
+         
+
+        </div>
+
+        <a
+          href="https://www.figma.com/design/tn62vFE8i3imnLXGDGTbde/BelajarKU?node-id=0-1&t=tpAcmBtRljJPKIMu-1"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-7 flex w-full items-center justify-center rounded-2xl bg-green-400 py-3 font-semibold text-black transition-all duration-300 hover:bg-green-300 hover:shadow-lg hover:shadow-green-400/40"
+        >
+          Lihat Project →
         </a>
 
       </div>
