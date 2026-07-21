@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import Navbar from "@/app/components/navbar";
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#09090B] text-white">
@@ -25,6 +25,7 @@ export default function Home() {
 
         </div>
       </nav>
+      
 
       {/* Hero */}
       <section className="relative z-10 mx-auto max-w-6xl px-8 pt-24 text-center">
@@ -170,7 +171,7 @@ export default function Home() {
         </div>
 
       </section>
-
+        <Navbar />
     </main>
   );
 }
