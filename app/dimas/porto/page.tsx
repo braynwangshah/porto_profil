@@ -38,7 +38,7 @@ export default function Porto() {
       {/* Back Button */}
       <Link
         href="/"
-        className="absolute top-8 left-8 z-20 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm text-gray-300 backdrop-blur-md transition hover:bg-white/10 hover:text-white"
+        className="fixed top-8 left-8 z-50 rounded-full border border-white/10 bg-white/5 px-5 py-2 text-sm text-gray-300 backdrop-blur-md transition hover:bg-white/10 hover:text-white"
       >
         ← Back
       </Link>
