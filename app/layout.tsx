@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Providers from "./brayn/providers/theme-provider";
 
 export const metadata: Metadata = {
   title: "CV Digital",
@@ -8,13 +9,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
