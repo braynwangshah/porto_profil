@@ -1,9 +1,13 @@
 import Link from "next/link";
-
+import Navbar from "../components/Navbar";
 export default function Profile() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#09090B] text-white">
+      <>
+  <Navbar />
 
+  {/* isi halaman */}
+</>
       {/* Background Blur */}
       <div className="absolute -top-40 -left-40 h-[450px] w-[450px] rounded-full bg-cyan-500/15 blur-[170px]" />
       <div className="absolute bottom-0 right-0 h-[450px] w-[450px] rounded-full bg-indigo-500/15 blur-[170px]" />

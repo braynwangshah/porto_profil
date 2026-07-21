@@ -1,12 +1,16 @@
 import Link from "next/link";
-
+import Navbar from "../components/Navbar";
 import Image from "next/image";
 import FallingEffects from "../components/falling-effects";
 
 export default function Porto() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#09090B] text-white">
+      <>
+  <Navbar />
 
+  {/* isi halaman */}
+</>
       {/* Background Blur */}
       <div className="absolute -top-40 -left-40 h-[450px] w-[450px] rounded-full bg-cyan-500/15 blur-[170px]" />
       <div className="absolute bottom-0 right-0 h-[450px] w-[450px] rounded-full bg-indigo-500/15 blur-[170px]" />
@@ -406,53 +410,139 @@ export default function Porto() {
 
 </div>
 
-              {/* ================= CONTACT ================= */}
-      <div className="mt-32 border-t border-white/10 pt-12">
-        <h2 className="mb-3 text-4xl font-bold text-center">
-          Contact
-        </h2>
+                         {/* ================= CONTACT ================= */}
+<div className="mt-32 border-t border-white/10 pt-14">
 
-        <p className="mb-12 text-center text-gray-400">
-          Hubungi saya melalui informasi di bawah ini.
-        </p>
+  <div className="text-center">
+    <p className="text-sm uppercase tracking-[0.35em] text-cyan-400">
+      CONTACT
+    </p>
 
-        <div className="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-md">
-          <div className="grid gap-8 md:grid-cols-2">
+    <h2 className="mt-3 text-4xl font-bold">
+      Let's Connect
+    </h2>
 
-            {/* Phone */}
-            <div>
-              <h3 className="mb-2 text-xl font-semibold text-cyan-400">
-                 Nomor Telepon
-              </h3>
+    <p className="mx-auto mt-4 max-w-2xl text-gray-400">
+      Tertarik bekerja sama atau ingin berdiskusi mengenai project?
+      Saya selalu terbuka untuk kesempatan baru.
+    </p>
+  </div>
 
-              <p className="text-lg text-gray-300">
-                0821-9455-9594
-              </p>
-            </div>
+  <div className="mx-auto mt-12 max-w-5xl rounded-[28px] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
 
-            {/* Address */}
-            <div>
-              <h3 className="mb-2 text-xl font-semibold text-cyan-400">
-                 Alamat
-              </h3>
+    <div className="grid gap-10 lg:grid-cols-[1.3fr_.7fr]">
 
-              <p className="leading-7 text-gray-300">
-                Kompleks Gerhana Alauddin Blok F/17
-                <br />
-                Kel. Mangasa, Kec. Tamalate
-                <br />
-                Kota Makassar, Sulawesi Selatan 90221
-              </p>
-            </div>
+      {/* Contact Information */}
+      <div>
 
+        <h3 className="mb-8 text-2xl font-semibold">
+          Contact Information
+        </h3>
+
+        <div className="space-y-6">
+
+          <div className="border-b border-white/10 pb-5">
+            <p className="text-sm uppercase tracking-widest text-cyan-400">
+              Phone
+            </p>
+
+            <p className="mt-2 text-lg text-white">
+              0821-9455-9594
+            </p>
           </div>
+
+          <div className="border-b border-white/10 pb-5">
+            <p className="text-sm uppercase tracking-widest text-cyan-400">
+              Email
+            </p>
+
+            <p className="mt-2 text-lg text-white">
+              dimas.makassar.2020@gmail.com
+            </p>
+          </div>
+
+          <div>
+            <p className="text-sm uppercase tracking-widest text-cyan-400">
+              Address
+            </p>
+
+            <p className="mt-2 leading-8 text-gray-300">
+              Kompleks Gerhana Alauddin Blok F/17
+              <br />
+              Kel. Mangasa, Kec. Tamalate
+              <br />
+              Kota Makassar, Sulawesi Selatan 90221
+            </p>
+          </div>
+
         </div>
+
+      </div>
+
+      {/* Right Side */}
+      <div className="flex flex-col justify-between rounded-3xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 to-indigo-500/10 p-7">
+
+        <div>
+
+          <span className="rounded-full bg-cyan-500/15 px-4 py-2 text-sm text-cyan-300">
+            Available for Freelance
+          </span>
+
+          <h3 className="mt-6 text-2xl font-bold">
+            Let's Build Something Great
+          </h3>
+
+          <p className="mt-4 leading-8 text-gray-400">
+            Saya berpengalaman membuat website modern, UI/UX Design,
+            serta aplikasi mobile menggunakan teknologi terbaru.
+          </p>
+
+        </div>
+
+        <div className="mt-10 space-y-3">
+
+          <a
+            href="https://github.com/lelegoreng0926"
+            target="_blank"
+            className="block rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:border-cyan-400/50 hover:bg-white/10"
+          >
+            <p className="font-semibold">
+              GitHub
+            </p>
+
+            <p className="text-sm text-gray-400">
+              github.com/lelegoreng0926
+            </p>
+          </a>
+
+          <a
+            href="https://www.instagram.com/d_yimas"
+            target="_blank"
+            className="block rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:border-cyan-400/50 hover:bg-white/10"
+          >
+            <p className="font-semibold">
+              Instagram
+            </p>
+
+            <p className="text-sm text-gray-400">
+              @d_yimas
+            </p>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
       </div>
 
               
 
       </div>
-    </div>
+  
 
     
   );
