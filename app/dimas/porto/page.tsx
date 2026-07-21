@@ -1,9 +1,26 @@
+"use client";
+
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
 import FallingEffects from "../components/falling-effects";
+import { EyeOff } from "lucide-react";
+import { useState } from "react";
 
 export default function Porto() {
+  const certificates = [
+    { src: "/jse.png", title: "JavaScript Essentials 2", issuer: "Cisco Networking Academy • 2026" },
+    { src: "/Dimas Iman Ismail (1).png", title: "UI / UX Design", issuer: "DevForger UC Makassar • 2025" },
+    { src: "/digidaw.png", title: "Completed the Training Program for Digital Marketing", issuer: "Telkom DigiUp • 2025" },
+  ];
+  const [selectedCertificate, setSelectedCertificate] = useState(0);
+  const [isCertificatePreviewVisible, setIsCertificatePreviewVisible] = useState(true);
+
+  const showCertificate = (index: number) => {
+    setSelectedCertificate(index);
+    setIsCertificatePreviewVisible(true);
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#09090B] text-white">
       <>
@@ -127,7 +144,12 @@ export default function Porto() {
         <div className="grid gap-8 md:grid-cols-3">
 
           {/* ================= Certificate 1 ================= */}
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.2)]">
+          <button
+            type="button"
+            onClick={() => showCertificate(0)}
+            className={`group overflow-hidden rounded-3xl border bg-white/5 text-left backdrop-blur-md transition-all duration-300 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.2)] focus:outline-none focus:ring-2 focus:ring-cyan-400/70 ${selectedCertificate === 0 && isCertificatePreviewVisible ? "border-cyan-400/70" : "border-white/10"}`}
+            aria-label="Tampilkan sertifikat JavaScript Essentials 2"
+          >
 
             <div className="relative h-60 w-full overflow-hidden">
               <Image
@@ -153,10 +175,15 @@ export default function Porto() {
                 Cisco Networking Academy • 2026
               </p>
             </div>
-          </div>
+          </button>
 
           {/* ================= Certificate 2 ================= */}
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.2)]">
+          <button
+            type="button"
+            onClick={() => showCertificate(1)}
+            className={`group overflow-hidden rounded-3xl border bg-white/5 text-left backdrop-blur-md transition-all duration-300 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.2)] focus:outline-none focus:ring-2 focus:ring-cyan-400/70 ${selectedCertificate === 1 && isCertificatePreviewVisible ? "border-cyan-400/70" : "border-white/10"}`}
+            aria-label="Tampilkan sertifikat UI UX Design"
+          >
 
             <div className="relative h-60 w-full overflow-hidden">
               <Image
@@ -182,10 +209,15 @@ export default function Porto() {
                 DevForger UC Makassar • 2025
               </p>
             </div>
-          </div>
+          </button>
 
           {/* ================= Certificate 3 ================= */}
-          <div className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.2)]">
+          <button
+            type="button"
+            onClick={() => showCertificate(2)}
+            className={`group overflow-hidden rounded-3xl border bg-white/5 text-left backdrop-blur-md transition-all duration-300 hover:-translate-y-3 hover:border-cyan-400/40 hover:shadow-[0_0_35px_rgba(34,211,238,0.2)] focus:outline-none focus:ring-2 focus:ring-cyan-400/70 ${selectedCertificate === 2 && isCertificatePreviewVisible ? "border-cyan-400/70" : "border-white/10"}`}
+            aria-label="Tampilkan sertifikat Digital Marketing"
+          >
 
             <div className="relative h-60 w-full overflow-hidden">
               <Image
@@ -211,9 +243,51 @@ export default function Porto() {
                 Telkom DigiUp • 2025
               </p>
             </div>
-          </div>
+          </button>
 
         </div>
+
+        {isCertificatePreviewVisible && (
+          <section
+            className="mt-10 overflow-hidden rounded-3xl border border-cyan-400/30 bg-white/5 p-3 shadow-[0_0_45px_rgba(34,211,238,0.12)] backdrop-blur-md sm:p-4"
+            aria-live="polite"
+          >
+            <div className="mb-3 flex items-center justify-between gap-3 px-1">
+              <div>
+                <p className="text-xs uppercase tracking-[0.16em] text-cyan-400">Certificate Preview</p>
+                <h3 className="mt-0.5 text-base font-bold sm:text-lg">{certificates[selectedCertificate].title}</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsCertificatePreviewVisible(false)}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-black/20 px-2.5 py-1.5 text-xs font-medium text-gray-200 transition hover:border-cyan-400/60 hover:text-cyan-300"
+                aria-label="Sembunyikan pratinjau sertifikat"
+              >
+                <EyeOff className="h-4 w-4" />
+                <span className="hidden sm:inline">Hide</span>
+              </button>
+            </div>
+            <div className="relative aspect-[4/3] min-h-[300px] w-full overflow-hidden rounded-2xl bg-black sm:aspect-[16/9]">
+              <Image
+                src={certificates[selectedCertificate].src}
+                alt=""
+                fill
+                aria-hidden="true"
+                className="scale-110 object-cover opacity-55 blur-xl saturate-125"
+                sizes="(max-width: 1280px) 100vw, 1152px"
+              />
+              <div className="absolute inset-0 bg-black/20" />
+              <Image
+                src={certificates[selectedCertificate].src}
+                alt={`Pratinjau ${certificates[selectedCertificate].title}`}
+                fill
+                className="z-10 object-contain p-3 drop-shadow-[0_20px_30px_rgba(0,0,0,0.65)] sm:p-5"
+                sizes="(max-width: 1280px) 100vw, 1152px"
+                priority
+              />
+            </div>
+          </section>
+        )}
       </div>
 
               {/* ================= PROJECTS ================= */}
@@ -231,7 +305,7 @@ export default function Porto() {
   <div className="mt-16 grid gap-10 lg:grid-cols-3">
 
     {/* ================= Project 1 ================= */}
-    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-400/50 hover:shadow-[0_0_50px_rgba(34,211,238,0.15)]">
+    <div className="project-card-web project-card-web--cyan group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-400/50 hover:shadow-[0_0_50px_rgba(34,211,238,0.15)]">
 
       <div className="relative h-60 overflow-hidden">
 
@@ -287,7 +361,7 @@ export default function Porto() {
     </div>
 
         {/* ================= Project 2 ================= */}
-    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-purple-400/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.18)]">
+    <div className="project-card-web project-card-web--purple group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-purple-400/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.18)]">
 
       <div className="relative h-60 overflow-hidden">
 
@@ -347,7 +421,7 @@ export default function Porto() {
     </div>
 
         {/* ================= Project 3 ================= */}
-    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-red-500/50 hover:shadow-[0_0_50px_rgba(239,68,68,0.20)]">
+    <div className="project-card-web project-card-web--red group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-red-500/50 hover:shadow-[0_0_50px_rgba(239,68,68,0.20)]">
 
       <div className="relative h-60 overflow-hidden">
 
@@ -406,8 +480,8 @@ export default function Porto() {
 
     </div>
 
-              {/* ================= Project 4 ================= */}
-    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-yellow-400/50 hover:shadow-[0_0_50px_rgba(250,204,21,0.18)]">
+                  {/* ================= Project 4 ================= */}
+    <div className="project-card-web project-card-web--amber group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-amber-400/60 hover:shadow-[0_0_60px_rgba(251,191,36,0.35)]">
 
       <div className="relative h-60 overflow-hidden">
 
@@ -420,7 +494,7 @@ export default function Porto() {
 
         <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/10 to-transparent" />
 
-        <span className="absolute left-5 top-5 rounded-full bg-yellow-400 px-3 py-1 text-xs font-semibold text-black">
+        <span className="absolute left-5 top-5 rounded-full bg-amber-400 px-3 py-1 text-xs font-semibold text-black">
           Mobile Application
         </span>
 
@@ -434,20 +508,20 @@ export default function Porto() {
 
         <p className="mt-3 flex-1 leading-7 text-gray-400">
           Aplikasi mobile untuk membantu pengelolaan proses pernikahan adat Makassar
-  dengan tampilan modern dan pengalaman pengguna yang mudah digunakan.
+          dengan tampilan modern dan pengalaman pengguna yang mudah digunakan.
         </p>
 
         <div className="mt-5 flex flex-wrap gap-2">
 
-          <span className="rounded-full bg-yellow-400/10 px-3 py-1 text-sm text-yellow-300">
+          <span className="rounded-full bg-amber-400/10 px-3 py-1 text-sm text-amber-300">
             Kotlin
           </span>
 
-          <span className="rounded-full bg-yellow-400/10 px-3 py-1 text-sm text-yellow-300">
+          <span className="rounded-full bg-amber-400/10 px-3 py-1 text-sm text-amber-300">
             Jetpack Compose
           </span>
 
-          <span className="rounded-full bg-yellow-400/10 px-3 py-1 text-sm text-yellow-300">
+          <span className="rounded-full bg-amber-400/10 px-3 py-1 text-sm text-amber-300">
             Android
           </span>
 
@@ -457,7 +531,7 @@ export default function Porto() {
           href="https://www.figma.com/design/DzN2obyDWvAiiQV1ut4Bbk/BOTTINGKU?node-id=0-1&t=Eu4k6fDOag1Ajplo-1"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-7 flex w-full items-center justify-center rounded-2xl bg-yellow-400 py-3 font-semibold text-black transition-all duration-300 hover:bg-yellow-300 hover:shadow-lg hover:shadow-yellow-400/40"
+          className="mt-7 flex w-full items-center justify-center rounded-2xl bg-amber-400 py-3 font-semibold text-black transition-all duration-300 hover:bg-amber-300 hover:shadow-lg hover:shadow-amber-400/40"
         >
           Lihat Project →
         </a>
@@ -466,64 +540,61 @@ export default function Porto() {
 
     </div>
 
-    {/* ================= Project 5 ================= */}
-    <div className="group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-green-400/60 hover:shadow-[0_0_60px_rgba(34,197,94,0.35)]">
+          {/* ================= Project 5 ================= */}
+      <div className="project-card-web project-card-web--teal group overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-teal-400/60 hover:shadow-[0_0_60px_rgba(45,212,191,0.35)]">
 
-      <div className="relative h-60 overflow-hidden">
+        <div className="relative h-60 overflow-hidden">
 
-        <Image
-          src="/bljr.png"
-          alt="BOTTINGKU"
-          fill
-          className="object-cover transition duration-700 group-hover:scale-110"
-        />
+          <Image
+            src="/bljr.png"
+            alt="BelajarKu"
+            fill
+            className="object-cover transition duration-700 group-hover:scale-110"
+          />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/10 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#09090B] via-black/10 to-transparent" />
 
-        <span className="absolute left-5 top-5 rounded-full bg-green-400 px-3 py-1 text-xs font-semibold text-black">
-          Website Course
-        </span>
-
-      </div>
-
-      <div className="flex min-h-[360px] flex-col p-7">
-
-        <h3 className="text-2xl font-bold">
-          BelajarKu
-        </h3>
-
-        <p className="mt-3 flex-1 leading-7 text-gray-400">
-          Website pembelajaran digital yang membantu siswa mengakses materi,
-  latihan, dan informasi belajar dengan tampilan modern serta mudah digunakan.
-        </p>
-
-        <div className="mt-5 flex flex-wrap gap-2">
-
-          <span className="rounded-full bg-green-400/10 px-3 py-1 text-sm text-green-300">
-            Next.js
+          <span className="absolute left-5 top-5 rounded-full bg-teal-400 px-3 py-1 text-xs font-semibold text-black">
+            Website Course
           </span>
-
-          <span className="rounded-full bg-green-400/10 px-3 py-1 text-sm text-green-300">
-            Tailwind CSS
-          </span>
-
-         
 
         </div>
 
-        <a
-          href="https://www.figma.com/design/tn62vFE8i3imnLXGDGTbde/BelajarKU?node-id=0-1&t=tpAcmBtRljJPKIMu-1"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-7 flex w-full items-center justify-center rounded-2xl bg-green-400 py-3 font-semibold text-black transition-all duration-300 hover:bg-green-300 hover:shadow-lg hover:shadow-green-400/40"
-        >
-          Lihat Project →
-        </a>
+        <div className="flex min-h-[360px] flex-col p-7">
+
+          <h3 className="text-2xl font-bold">
+            BelajarKu
+          </h3>
+
+          <p className="mt-3 flex-1 leading-7 text-gray-400">
+            Website pembelajaran digital yang membantu siswa mengakses materi,
+            latihan, dan informasi belajar dengan tampilan modern serta mudah digunakan.
+          </p>
+
+          <div className="mt-5 flex flex-wrap gap-2">
+
+            <span className="rounded-full bg-teal-400/10 px-3 py-1 text-sm text-teal-300">
+              Next.js
+            </span>
+
+            <span className="rounded-full bg-teal-400/10 px-3 py-1 text-sm text-teal-300">
+              Tailwind CSS
+            </span>
+
+          </div>
+
+          <a
+            href="https://www.figma.com/design/tn62vFE8i3imnLXGDGTbde/BelajarKU?node-id=0-1&t=tpAcmBtRljJPKIMu-1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-7 flex w-full items-center justify-center rounded-2xl bg-teal-400 py-3 font-semibold text-black transition-all duration-300 hover:bg-teal-300 hover:shadow-lg hover:shadow-teal-400/40"
+          >
+            Lihat Project →
+          </a>
+
+        </div>
 
       </div>
-
-    </div>
-
   </div>
 
 </div>
@@ -537,7 +608,7 @@ export default function Porto() {
     </p>
 
     <h2 className="mt-3 text-4xl font-bold">
-      Let's Connect
+      Let&apos;s Connect
     </h2>
 
     <p className="mx-auto mt-4 max-w-2xl text-gray-400">
@@ -607,7 +678,7 @@ export default function Porto() {
           </span>
 
           <h3 className="mt-6 text-2xl font-bold">
-            Let's Build Something Great
+            Let&apos;s Build Something Great
           </h3>
 
           <p className="mt-4 leading-8 text-gray-400">

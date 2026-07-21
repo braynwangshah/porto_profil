@@ -261,3 +261,110 @@ body {
   opacity: 0.65;
   text-decoration: none;
 }
+
+/* Jaring laba-laba halus pada bingkai kartu project. */
+.project-card-web {
+  position: relative;
+  isolation: isolate;
+}
+
+.project-card-web::after {
+  position: absolute;
+  z-index: 20;
+  inset: 3px;
+  padding: 2px;
+  border-radius: inherit;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  background:
+    repeating-conic-gradient(from 0deg at 50% 50%, var(--web-color) 0 0.5deg, transparent 0.5deg 18deg),
+    repeating-radial-gradient(circle at 50% 50%, transparent 0 18px, var(--web-color) 18px 19px, transparent 19px 37px);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: opacity 350ms ease;
+}
+
+.project-card-web::before {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 118px;
+  border-top-right-radius: 1.5rem;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  background:
+    repeating-radial-gradient(ellipse at 100% 0%, transparent 0 17px, var(--web-color) 18px 19px, transparent 20px 35px),
+    repeating-conic-gradient(from 180deg at 100% 0%, transparent 0 14deg, var(--web-color) 14deg 15deg, transparent 15deg 28deg);
+  clip-path: polygon(18% 0, 100% 0, 100% 100%);
+  transform: translateY(-10px);
+  transition: opacity 350ms ease, transform 500ms ease;
+}
+
+.project-card-web:hover::after {
+  opacity: 0.68;
+}
+
+.project-card-web:hover::before {
+  opacity: 0.78;
+  transform: translateY(0);
+}
+
+.project-card-web--cyan { --web-color: rgba(34, 211, 238, 0.9); }
+.project-card-web--purple { --web-color: rgba(192, 132, 252, 0.9); }
+.project-card-web--red { --web-color: rgba(248, 113, 113, 0.9); }
+.project-card-web--amber { --web-color: rgba(251, 191, 36, 0.9); }
+.project-card-web--teal { --web-color: rgba(45, 212, 191, 0.9); }
+
+/* Setiap kartu memiliki titik gantung dan bentuk jaring yang berbeda. */
+.project-card-web--cyan::before {
+  right: auto;
+  left: 0;
+  width: 128px;
+  height: 105px;
+  border-top-left-radius: 1.5rem;
+  background:
+    repeating-radial-gradient(ellipse at 0 0, transparent 0 15px, var(--web-color) 16px 17px, transparent 18px 31px),
+    repeating-conic-gradient(from 180deg at 0 0, transparent 0 15deg, var(--web-color) 15deg 16deg, transparent 16deg 30deg);
+  clip-path: polygon(0 0, 82% 0, 0 100%);
+}
+
+.project-card-web--purple::before {
+  width: 174px;
+  height: 100px;
+  clip-path: polygon(8% 0, 100% 0, 100% 88%, 70% 68%);
+}
+
+.project-card-web--red::before {
+  right: 25%;
+  width: 120px;
+  height: 92px;
+  background:
+    repeating-radial-gradient(ellipse at 55% 0, transparent 0 14px, var(--web-color) 15px 16px, transparent 17px 29px),
+    repeating-conic-gradient(from 180deg at 55% 0, transparent 0 16deg, var(--web-color) 16deg 17deg, transparent 17deg 32deg);
+  clip-path: polygon(18% 0, 82% 0, 100% 82%, 50% 100%, 0 82%);
+}
+
+.project-card-web--amber::before {
+  right: auto;
+  left: 31%;
+  width: 148px;
+  height: 112px;
+  background:
+    repeating-radial-gradient(ellipse at 35% 0, transparent 0 18px, var(--web-color) 19px 20px, transparent 21px 36px),
+    repeating-conic-gradient(from 180deg at 35% 0, transparent 0 13deg, var(--web-color) 13deg 14deg, transparent 14deg 26deg);
+  clip-path: polygon(0 0, 78% 0, 100% 72%, 50% 100%, 8% 64%);
+}
+
+.project-card-web--teal::before {
+  width: 112px;
+  height: 138px;
+  background:
+    repeating-radial-gradient(ellipse at 100% 0, transparent 0 13px, var(--web-color) 14px 15px, transparent 16px 27px),
+    repeating-conic-gradient(from 180deg at 100% 0, transparent 0 11deg, var(--web-color) 11deg 12deg, transparent 12deg 24deg);
+  clip-path: polygon(35% 0, 100% 0, 100% 100%, 65% 70%, 20% 86%);
+}
