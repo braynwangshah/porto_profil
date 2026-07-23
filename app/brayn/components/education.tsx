@@ -89,14 +89,6 @@ export default function Education() {
               className={`
                 relative
                 mb-8
-                flex
-                items-center
-
-                ${
-                  index % 2 === 0
-                    ? "justify-start md:justify-end"
-                    : "justify-start"
-                }
               `}
             >
 
@@ -129,7 +121,7 @@ export default function Education() {
               <div
                 className={`
                 w-full
-                md:w-[43%]
+                md:w-[calc(50%-4rem)]
 
                 rounded-3xl
 
@@ -155,8 +147,8 @@ export default function Education() {
 
                 ${
                   index % 2 === 0
-                    ? "md:mr-14"
-                    : "md:ml-14"
+                    ? "md:ml-[calc(50%+4rem)]"
+                    : "md:mr-[calc(50%+4rem)]"
                 }
                 `}
               >
