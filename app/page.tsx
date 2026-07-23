@@ -233,12 +233,13 @@ export default function Home() {
               Porto
             </Link>
 
-            <Link
-              href="/fadhil/contact"
+             <Link
+              href="/fadhil/porto"
               className="rounded-2xl border border-purple-500 py-3 text-center text-sm font-semibold transition hover:bg-purple-500"
             >
-              Contact
+              About
             </Link>
+
 
           </div>
 

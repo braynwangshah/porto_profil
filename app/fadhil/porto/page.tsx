@@ -1,48 +1,47 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const projects = [
+const certificates = [
   {
     id: 1,
-    title: "Project Satu",
-    description: "Poster untuk tim f1 saat mereka menang qualifikasi.",
-    tags: ["Next.js", "Tailwind"],
-    image: "/gambar1.png",
+    title: "Sertifikat Satu",
+    issuer: "Nama Penyelenggara",
+    date: "2024",
+    image: "/cert1.png",
   },
   {
     id: 2,
-    title: "Project Dua",
-    description: "Poster untuk tim f1 saat Race Day di Silverstone.",
-    tags: ["React", "Node.js"],
-    image: "/gambar2.png",
+    title: "Sertifikat Dua",
+    issuer: "Nama Penyelenggara",
+    date: "2024",
+    image: "/cert2.png",
   },
   {
     id: 3,
-    title: "Project Tiga",
-    description: "Poster untuk tim f1 di British Grand Prix.",
-    tags: ["TypeScript", "MongoDB"],
-    image: "/gambar3.png",
+    title: "Sertifikat Tiga",
+    issuer: "Nama Penyelenggara",
+    date: "2025",
+    image: "/cert3.png",
   },
   {
     id: 4,
-    title: "Project Empat",
-    description: "Poster hasil race untuk tim f1.",
-    tags: ["Figma", "UI/UX"],
-    image: "/gambar4.png",
+    title: "Sertifikat Empat",
+    issuer: "Nama Penyelenggara",
+    date: "2025",
+    image: "/cert4.png",
   },
 ];
 
 export default function PortoPage() {
   return (
-    <main className="min-h-screen w-full bg-black text-white">
-      {/* Animasi */}
+    <main className="w-full bg-white">
       <style>{`
         @keyframes fadeInDown {
-          from { opacity: 0; transform: translateY(-12px); }
+          from { opacity: 0; transform: translateY(-16px); }
           to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
+          from { opacity: 0; transform: translateY(24px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .anim-fade-down {
@@ -54,73 +53,70 @@ export default function PortoPage() {
           animation: fadeInUp 0.7s ease-out forwards;
         }
       `}</style>
-      
 
-          {/* Tombol Kembali */}
-    <div className="absolute top-6 left-6 z-50">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-5 py-2 text-sm font-medium text-white backdrop-blur-md transition-all duration-300 hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-cyan-300"
-      >
-        ← Kembali ke Home
-      </Link>
-    </div>
-      {/* Navbar - konsisten dengan halaman profile */}
-      <nav className="anim-fade-down flex items-center justify-between px-6 py-6 md:px-16">
-        <span className="text-xl font-light tracking-[0.2em]"></span>
+      {/* HERO - langit biru dengan awan, konsisten dengan profile */}
+      <section className="relative w-full overflow-hidden bg-gradient-to-b from-sky-300 via-sky-400 to-sky-500 pb-28">
+        {/* Awan-awan blur */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-10 top-16 h-52 w-72 rounded-full bg-white/40 blur-3xl" />
+          <div className="absolute right-0 top-32 h-64 w-96 rounded-full bg-white/30 blur-3xl" />
+          <div className="absolute bottom-0 left-1/4 h-56 w-96 rounded-full bg-white/40 blur-3xl" />
+        </div>
 
-        <ul className="hidden gap-8 text-sm font-light tracking-wide text-neutral-300 md:flex">
-  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-    <Link href="/">Home</Link>
-  </li>
+        {/* Navbar - pill mengambang, konsisten dengan profile */}
+        <div className="anim-fade-down relative z-20 flex justify-center px-6 pt-6">
+          <nav className="flex w-full max-w-3xl items-center justify-between gap-6 rounded-full bg-white/90 px-6 py-3 shadow-lg backdrop-blur-md">
+            <span className="text-base font-bold tracking-tight text-slate-900">
+              Fadhil<span className="text-sky-500">.</span>
+            </span>
 
-  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-    <Link href="/fadhil/profile">About</Link>
-  </li>
+            <ul className="hidden items-center gap-6 text-sm font-medium text-slate-600 md:flex">
+              <li className="cursor-pointer transition hover:text-slate-900">
+                <Link href="/fadhil/profile">Home</Link>
+              </li>
+              <li className="cursor-pointer transition hover:text-slate-900">
+                <Link href="/fadhil/profile">About</Link>
+              </li>
+              <li className="cursor-pointer font-semibold text-slate-900">
+                Portfolio
+              </li>
+            </ul>
 
-  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-    <Link href="/fadhil/porto">Portfolio</Link>
-  </li>
+            <Link href="/contact">
+              <button className="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-700">
+                Contact
+              </button>
+            </Link>
+          </nav>
+        </div>
 
-  <li className="cursor-pointer transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]">
-    <Link href="/fadhil/contact">Contact</Link>
-  </li>
-</ul>
+        {/* Header teks */}
+        <div className="relative z-10 flex flex-col items-center px-6 pt-16 text-center md:pt-20">
+          <p
+            className="anim-fade-up mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-white/80"
+            style={{ animationDelay: "0.1s" }}
+          >
+            My Achievements
+          </p>
 
-        <button className="flex flex-col gap-1.5 md:hidden" aria-label="Open menu">
-          <span className="h-px w-6 bg-white" />
-          <span className="h-px w-6 bg-white" />
-          <span className="h-px w-4 bg-white" />
-        </button>
-      </nav>
+          <h1
+            className="anim-fade-up max-w-2xl text-4xl font-bold leading-tight tracking-tight text-white md:text-6xl"
+            style={{ animationDelay: "0.2s" }}
+          >
+            Sertifikat & Pencapaian
+          </h1>
 
-      {/* Page header */}
-      <section className="px-6 pb-12 pt-8 md:px-16 md:pb-20 md:pt-12">
-        <p
-          className="anim-fade-up mb-3 text-xs font-light tracking-[0.4em] text-neutral-400 md:text-sm"
-          style={{ animationDelay: "0.1s" }}
-        >
-          MY WORK
-        </p>
-        <h1
-          className="anim-fade-up max-w-xl text-4xl font-light leading-tight md:text-6xl"
-          style={{ animationDelay: "0.2s" }}
-        >
-          Selected <span className="font-semibold text-white">Portfolio</span>
-        </h1>
-        <p
-          className="anim-fade-up mt-5 max-w-md text-sm font-light leading-relaxed text-neutral-400 md:text-base"
-          style={{ animationDelay: "0.3s" }}
-        >
-          Beberapa project yang pernah saya kerjakan.
-        </p>
-
-        <div
-          className="anim-fade-up mt-8 h-px w-full max-w-xs bg-gradient-to-r from-white/40 to-transparent"
-          style={{ animationDelay: "0.4s" }}
-        />
+          <p
+            className="anim-fade-up mt-5 max-w-md text-sm font-medium text-white/85 md:text-base"
+            style={{ animationDelay: "0.35s" }}
+          >
+            Beberapa sertifikat yang pernah saya raih, semua tersimpan
+            rapi di satu tempat.
+          </p>
+        </div>
       </section>
 
+<<<<<<< HEAD
       {/* Project grid */}
       <section className="grid grid-cols-2 gap-3 px-6 pb-20 md:grid-cols-3 md:gap-5 md:px-16 lg:grid-cols-4">
         {projects.map((project, index) => (
@@ -137,27 +133,35 @@ export default function PortoPage() {
               sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
               className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110"
             />
+=======
+      {/* Grid sertifikat - border rasio 16:9 (landscape) */}
+      <section className="relative z-20 mx-auto -mt-16 grid max-w-6xl grid-cols-1 gap-6 px-6 pb-24 sm:grid-cols-2 md:px-16">
+        {certificates.map((cert, index) => (
+          <div
+            key={cert.id}
+            className="anim-fade-up group overflow-hidden rounded-2xl bg-white shadow-xl transition duration-300 hover:-translate-y-2 hover:shadow-2xl"
+            style={{ animationDelay: `${0.1 * index}s` }}
+          >
+            {/* Border gambar sertifikat, rasio 16:9 */}
+            <div className="aspect-video w-full overflow-hidden bg-slate-100">
+              <img
+                src={cert.image}
+                alt={cert.title}
+                className="h-full w-full object-contain transition duration-500 group-hover:scale-105"
+              />
+            </div>
+>>>>>>> 21a5df1 (update)
 
-            {/* Overlay gradasi, selalu ada tapi menguat saat hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent transition duration-300 group-hover:from-black/95" />
-
-            {/* Konten teks di atas overlay */}
-            <div className="absolute inset-0 flex flex-col justify-end p-4">
-              <p className="text-[10px] font-light uppercase tracking-[0.3em] text-white/50 opacity-0 transition duration-300 group-hover:opacity-100">
-                {project.tags[0]}
+            <div className="p-5">
+              <p className="text-xs font-medium uppercase tracking-wide text-sky-600">
+                {cert.issuer} · {cert.date}
               </p>
-              <h2 className="mt-1 text-base font-medium text-white transition duration-300 group-hover:-translate-y-1 md:text-lg">
-                {project.title}
+
+              <h2 className="mt-1 text-base font-semibold text-slate-900">
+                {cert.title}
               </h2>
             </div>
-
-            {/* Panah muncul di pojok kanan atas saat hover */}
-            <div className="absolute right-4 top-4 flex h-9 w-9 -translate-y-2 items-center justify-center rounded-full bg-white/10 text-white opacity-0 backdrop-blur-sm transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-4 w-4">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M9 7h8v8" />
-              </svg>
-            </div>
-          </Link>
+          </div>
         ))}
       </section>
     </main>
