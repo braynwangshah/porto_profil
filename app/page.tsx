@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Navbar from "@/app/components/navbar";
+import LikeButton from "@/app/components/LikeButton";
+
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#09090B] text-white">
@@ -50,7 +52,11 @@ export default function Home() {
       <section className="relative z-10 mx-auto mt-20 flex max-w-7xl flex-wrap justify-center gap-10 px-8 pb-24">
 
         {/* ================= Brayn ================= */}
-        <div className="group w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-cyan-400/50 hover:bg-white/10">
+        <div className="group relative w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-cyan-400/50 hover:bg-white/10">
+
+          <div className="absolute top-4 right-4 z-20">
+            <LikeButton cardId="brayn" />
+          </div>
 
           <div className="pt-10">
             <img
@@ -82,7 +88,11 @@ export default function Home() {
         </div>
 
         {/* ================= Dimas ================= */}
-        <div className="group w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-green-400/50 hover:bg-white/10">
+        <div className="group relative w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-green-400/50 hover:bg-white/10">
+
+          <div className="absolute top-4 right-4 z-20">
+            <LikeButton cardId="dimas" />
+          </div>
 
           <div className="pt-10">
             <img
@@ -123,7 +133,11 @@ export default function Home() {
         </div>
 
         {/* ================= Fadhil ================= */}
-        <div className="group w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-purple-400/50 hover:bg-white/10">
+        <div className="group relative w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-purple-400/50 hover:bg-white/10">
+
+          <div className="absolute top-4 right-4 z-20">
+            <LikeButton cardId="fadhil" />
+          </div>
 
           <div className="pt-10">
             <img
@@ -171,7 +185,7 @@ export default function Home() {
         </div>
 
       </section>
-        <Navbar />
+      <Navbar />
     </main>
   );
 }
