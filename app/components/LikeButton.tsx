@@ -32,9 +32,11 @@ export default function LikeButton({ cardId }: LikeButtonProps) {
   }, [cardId]);
 
   const handleLike = () => {
+    let newLikes = likes;
+
     if (hasLiked) {
       // Batal Like (Kembali ke 0)
-      const newLikes = Math.max(0, likes - 1);
+      newLikes = Math.max(0, likes - 1);
       setLikes(newLikes);
       setHasLiked(false);
 
@@ -42,13 +44,22 @@ export default function LikeButton({ cardId }: LikeButtonProps) {
       localStorage.setItem(`total_likes_${cardId}`, newLikes.toString());
     } else {
       // Tambah Like (Menjadi 1)
-      const newLikes = likes + 1;
+      newLikes = likes + 1;
       setLikes(newLikes);
       setHasLiked(true);
 
       localStorage.setItem(`liked_${cardId}`, "true");
       localStorage.setItem(`total_likes_${cardId}`, newLikes.toString());
     }
+
+    window.dispatchEvent(
+      new CustomEvent("team-like-updated", {
+        detail: {
+          cardId,
+          likes: newLikes,
+        },
+      }),
+    );
   };
 
   // Tampilan awal sebelum browser terhubung (Default angka 0)

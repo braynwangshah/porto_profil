@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const achievements = [
   {
     title: "JavaScript Essentials 2",
@@ -28,7 +30,7 @@ export default function Achievement() {
   return (
     <section
       id="achievement"
-      className="py-32 bg-slate-100 dark:bg-slate-950 transition-colors duration-500"
+      className="flex min-h-[calc(100vh-5rem)] scroll-mt-20 items-center py-16 bg-slate-100 dark:bg-slate-950 transition-colors duration-500"
     >
       <div className="max-w-7xl mx-auto px-6">
 
@@ -40,11 +42,11 @@ export default function Achievement() {
             My Achievements
           </span>
 
-          <h2 className="mt-6 text-5xl font-black text-slate-900 dark:text-white">
+          <h2 className="mt-4 text-4xl font-black text-slate-900 dark:text-white md:text-5xl">
             Certificates
           </h2>
 
-          <p className="mt-5 text-lg text-slate-600 dark:text-slate-400">
+          <p className="mt-4 text-slate-600 dark:text-slate-400">
             Beberapa sertifikat dan penghargaan yang saya peroleh selama belajar
             dan mengembangkan kemampuan.
           </p>
@@ -53,7 +55,7 @@ export default function Achievement() {
 
         {/* Card */}
 
-        <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
           {achievements.map((item, index) => (
 
@@ -78,11 +80,13 @@ export default function Achievement() {
 
               {/* Image */}
 
-              <div className="relative h-60 overflow-hidden bg-slate-200 dark:bg-slate-800">
+              <div className="relative h-44 overflow-hidden bg-slate-200 dark:bg-slate-800">
 
-                <img
+                <Image
                   src={item.image}
                   alt={item.title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="w-full h-full object-cover transition duration-500 group-hover:scale-105"
                 />
 
@@ -94,9 +98,9 @@ export default function Achievement() {
 
               {/* Content */}
 
-              <div className="p-7">
+              <div className="p-5">
 
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                   {item.title}
                 </h3>
 
@@ -104,7 +108,7 @@ export default function Achievement() {
                   {item.issuer}
                 </p>
 
-                <p className="mt-5 leading-8 text-slate-600 dark:text-slate-300">
+                <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">
                   {item.description}
                 </p>
 

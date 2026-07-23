@@ -1,7 +1,11 @@
 "use client";
 
+import Image from "next/image";
+import { useEffect, useState } from "react";
+
 const projects = [
   {
+    id: "bottingku",
     title: "BOTTINGKU",
     tech: ["Flutter", "Next.js", "Firebase"],
     description:
@@ -9,6 +13,7 @@ const projects = [
     image: "/bottingku.png",
   },
   {
+    id: "belajarku",
     title: "BelajarKu",
     tech: ["Flutter", "Laravel", "MySQL"],
     description:
@@ -16,6 +21,7 @@ const projects = [
     image: "/belajarku.png",
   },
   {
+    id: "temuin",
     title: "Temuin",
     tech: ["Flutter", "Google Maps API", "Firebase"],
     description:
@@ -25,6 +31,55 @@ const projects = [
 ];
 
 export default function Portofolio() {
+  const [likes, setLikes] = useState<Record<string, number>>({});
+  const [likedProjects, setLikedProjects] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const nextLikes: Record<string, number> = {};
+      const nextLikedProjects: Record<string, boolean> = {};
+
+      projects.forEach((project) => {
+        const storedLikes = localStorage.getItem(`total_likes_project_${project.id}`);
+        const userLiked = localStorage.getItem(`liked_project_${project.id}`);
+
+        nextLikes[project.id] = storedLikes ? parseInt(storedLikes, 10) : 0;
+        nextLikedProjects[project.id] = userLiked === "true";
+      });
+
+      setLikes(nextLikes);
+      setLikedProjects(nextLikedProjects);
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const maxLikes = Math.max(0, ...projects.map((project) => likes[project.id] ?? 0));
+
+  const handleProjectLike = (projectId: string) => {
+    const alreadyLiked = likedProjects[projectId];
+    const currentLikes = likes[projectId] ?? 0;
+    const newLikes = alreadyLiked ? Math.max(0, currentLikes - 1) : currentLikes + 1;
+
+    setLikes((current) => ({
+      ...current,
+      [projectId]: newLikes,
+    }));
+
+    setLikedProjects((current) => ({
+      ...current,
+      [projectId]: !alreadyLiked,
+    }));
+
+    if (alreadyLiked) {
+      localStorage.removeItem(`liked_project_${projectId}`);
+    } else {
+      localStorage.setItem(`liked_project_${projectId}`, "true");
+    }
+
+    localStorage.setItem(`total_likes_project_${projectId}`, newLikes.toString());
+  };
+
   return (
     <section
       id="portofolio"
@@ -32,7 +87,11 @@ export default function Portofolio() {
       relative
       overflow-hidden
 
-      py-32
+      flex
+      min-h-[calc(100vh-5rem)]
+      scroll-mt-20
+      items-center
+      py-16
 
       bg-gradient-to-br
       from-white
@@ -82,10 +141,10 @@ export default function Portofolio() {
 
           <h2
             className="
-            mt-6
+            mt-4
 
-            text-5xl
-            md:text-6xl
+            text-4xl
+            md:text-5xl
 
             font-black
 
@@ -98,14 +157,12 @@ export default function Portofolio() {
 
           <p
             className="
-            mt-6
+            mt-4
 
             max-w-3xl
             mx-auto
 
-            text-lg
-
-            leading-8
+            leading-7
 
             text-slate-600
             dark:text-slate-400
@@ -119,126 +176,151 @@ export default function Portofolio() {
 
         {/* Projects */}
 
-        <div className="mt-20 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 
           {projects.map((project, index) => (
+            (() => {
+              const projectLikes = likes[project.id] ?? 0;
+              const isMostLiked = projectLikes > 0 && projectLikes === maxLikes;
+              const hasLiked = likedProjects[project.id];
 
-            <div
-              key={index}
-              className="
-              group
-
-              flex
-              flex-col
-
-              overflow-hidden
-
-              rounded-3xl
-
-              bg-white
-              dark:bg-slate-900
-
-              border
-              border-slate-200
-              dark:border-slate-700
-
-              shadow-lg
-
-              hover:-translate-y-3
-              hover:shadow-2xl
-
-              transition-all
-              duration-300
-
-              animate-[fadeUp_.8s_ease]
-              "
-            >
-
-              {/* Image */}
-
-              <div className="relative h-60 overflow-hidden">
-
-                <img
-                  src={project.image}
-                  alt={project.title}
+              return (
+                <div
+                  key={index}
                   className="
-                  h-full
-                  w-full
+                  group
 
-                  object-cover
+                  flex
+                  flex-col
+
+                  overflow-hidden
+
+                  rounded-3xl
+
+                  bg-white
+                  dark:bg-slate-900
+
+                  border
+                  border-slate-200
+                  dark:border-slate-700
+
+                  shadow-lg
+
+                  hover:-translate-y-3
+                  hover:shadow-2xl
 
                   transition-all
-                  duration-500
-
-                  group-hover:scale-110
-                  group-hover:rotate-1
-                  "
-                />
-
-                <div
-                  className="
-                  absolute
-                  inset-0
-
-                  bg-gradient-to-t
-                  from-black/50
-                  to-transparent
-
-                  opacity-0
-
-                  group-hover:opacity-100
-
-                  transition
                   duration-300
-                  "
-                />
 
-                <div
-                  className="
-                  absolute
-                  top-4
-                  left-4
-
-                  rounded-full
-
-                  bg-cyan-500
-
-                  px-4
-                  py-1
-
-                  text-sm
-                  font-semibold
-
-                  text-white
+                  animate-[fadeUp_.8s_ease]
                   "
                 >
-                  Project
-                </div>
 
-              </div>
+                  {/* Image */}
 
-              {/* Content */}
+                  <div className="relative h-44 overflow-hidden">
 
-              <div className="flex flex-1 flex-col p-7">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="
+                      h-full
+                      w-full
 
-                <h3
-                  className="
-                  text-3xl
+                      object-cover
 
-                  font-bold
+                      transition-all
+                      duration-500
 
-                  text-slate-900
-                  dark:text-white
-                  "
-                >
-                  {project.title}
-                </h3>
+                      group-hover:scale-110
+                      group-hover:rotate-1
+                      "
+                    />
+
+                    <div
+                      className="
+                      absolute
+                      inset-0
+
+                      bg-gradient-to-t
+                      from-black/50
+                      to-transparent
+
+                      opacity-0
+
+                      group-hover:opacity-100
+
+                      transition
+                      duration-300
+                      "
+                    />
+
+                    <div
+                      className="
+                      absolute
+                      top-4
+                      left-4
+
+                      rounded-full
+
+                      bg-cyan-500
+
+                      px-4
+                      py-1
+
+                      text-sm
+                      font-semibold
+
+                      text-white
+                      "
+                    >
+                      Project
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() => handleProjectLike(project.id)}
+                      className={`absolute right-4 top-4 rounded-full px-3 py-1 text-sm font-bold backdrop-blur-md transition ${
+                        hasLiked
+                          ? "bg-rose-500 text-white shadow-lg"
+                          : "bg-black/45 text-white hover:bg-black/65"
+                      }`}
+                    >
+                      ♥ {projectLikes}
+                    </button>
+
+                  </div>
+
+                  {/* Content */}
+
+                  <div className="flex flex-1 flex-col p-5">
+
+                    {isMostLiked && (
+                      <p className="mb-2 text-sm font-bold text-cyan-600 dark:text-cyan-300">
+                        Proyek Terpopuler!
+                      </p>
+                    )}
+
+                    <h3
+                      className="
+                      text-2xl
+
+                      font-bold
+
+                      text-slate-900
+                      dark:text-white
+                      "
+                    >
+                      {project.title}
+                    </h3>
 
                 {/* Tech */}
 
-                <div className="mt-5 flex flex-wrap gap-2">
+                    <div className="mt-4 flex flex-wrap gap-2">
 
-                  {project.tech.map((item) => (
+                      {project.tech.map((item) => (
 
                     <span
                       key={item}
@@ -262,30 +344,31 @@ export default function Portofolio() {
                       {item}
                     </span>
 
-                  ))}
+                      ))}
 
-                </div>
+                    </div>
 
                 {/* Description */}
 
-                <p
-                  className="
-                  mt-6
+                    <p
+                      className="
+                      mt-4
 
-                  flex-1
+                      flex-1
 
-                  leading-8
+                      text-sm
+                      leading-6
 
-                  text-slate-600
-                  dark:text-slate-300
-                  "
-                >
-                  {project.description}
-                </p>
+                      text-slate-600
+                      dark:text-slate-300
+                      "
+                    >
+                      {project.description}
+                    </p>
 
                 {/* Button */}
 
-                <div className="mt-8">
+                    <div className="mt-5">
 
                   <a
                     href={project.image}
@@ -318,11 +401,13 @@ export default function Portofolio() {
                     Lihat Sertifikat
                   </a>
 
+                    </div>
+
+                  </div>
+
                 </div>
-
-              </div>
-
-            </div>
+              );
+            })()
 
           ))}
 

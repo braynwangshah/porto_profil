@@ -1,13 +1,15 @@
+import Image from "next/image";
+
 export default function About() {
   return (
     <section
       id="about"
-      className="py-24 px-6 bg-white dark:bg-slate-950 transition-colors duration-300"
+      className="flex min-h-[calc(100vh-5rem)] scroll-mt-20 items-center px-6 py-16 bg-white dark:bg-slate-950 transition-colors duration-300"
     >
       <div className="max-w-6xl mx-auto">
 
         {/* Judul */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <h2 className="text-4xl font-bold text-slate-800 dark:text-white">
             Tentang Saya
           </h2>
@@ -15,7 +17,7 @@ export default function About() {
           <div className="w-24 h-1 bg-indigo-600 rounded-full mx-auto mt-4"></div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
 
           {/* FOTO */}
           <div className="flex flex-col items-center">
@@ -34,20 +36,22 @@ export default function About() {
                 hover:shadow-indigo-500/40
               "
             >
-              <img
+              <Image
                 src="/brayn.jpg"
                 alt="Brayn"
-                className="w-72 h-72 object-cover"
+                width={288}
+                height={288}
+                className="w-64 h-64 object-cover"
               />
             </div>
 
-            <h3 className="mt-8 text-4xl font-bold text-center text-slate-800 dark:text-white">
+            <h3 className="mt-6 text-3xl font-bold text-center text-slate-800 dark:text-white">
               Brayn Richard
               <br />
               Wangshah
             </h3>
 
-            <p className="mt-2 text-indigo-600 font-semibold text-lg">
+            <p className="mt-2 text-indigo-600 font-semibold">
               Siswa SMK Telkom Makassar
             </p>
 
@@ -56,7 +60,7 @@ export default function About() {
           {/* DESKRIPSI */}
           <div>
 
-            <p className="text-lg leading-9 text-slate-600 dark:text-slate-300">
+            <p className="leading-8 text-slate-600 dark:text-slate-300">
 
               Saya adalah siswa kelas XII Rekayasa Perangkat Lunak yang
               berfokus pada <b>web development</b>, <b>mobile development</b>,
@@ -74,7 +78,7 @@ export default function About() {
             </p>
 
             {/* TAG */}
-            <div className="flex flex-wrap gap-3 mt-8">
+            <div className="flex flex-wrap gap-3 mt-6">
 
               {[
                 "Web Development",
@@ -112,13 +116,13 @@ export default function About() {
 
             <div
   className="
-    mt-10
+    mt-7
     rounded-3xl
 
     bg-white
     dark:bg-slate-800
 
-    p-8
+    p-6
 
     border
     border-slate-200
@@ -134,7 +138,7 @@ export default function About() {
     hover:border-indigo-500
   "
 >
-  <div className="space-y-5 text-lg">
+  <div className="space-y-4">
 
     <div className="flex">
       <span className="font-bold w-36 text-slate-800 dark:text-white">

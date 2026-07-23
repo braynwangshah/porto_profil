@@ -58,7 +58,11 @@ export default function Experience() {
       id="experience"
       className="
       relative
-      py-32
+      flex
+      min-h-[calc(100vh-5rem)]
+      scroll-mt-20
+      items-center
+      py-14
 
       bg-gradient-to-br
       from-cyan-50
@@ -83,13 +87,13 @@ export default function Experience() {
 
         {/* Heading */}
 
-        <div className="text-center mb-24">
+        <div className="text-center mb-10">
 
-          <h2 className="text-5xl font-black text-slate-800 dark:text-white">
+          <h2 className="text-4xl font-black text-slate-800 dark:text-white md:text-5xl">
             Pengalaman Organisasi
           </h2>
 
-          <p className="mt-5 max-w-3xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">
+          <p className="mt-4 max-w-3xl mx-auto text-base leading-7 text-slate-600 dark:text-slate-400">
             Riwayat organisasi, kepanitiaan, dan aktivitas yang membentuk
             kemampuan kepemimpinan, komunikasi, serta kerja sama tim.
           </p>
@@ -102,7 +106,7 @@ export default function Experience() {
 
           <div className="absolute left-1/2 top-0 h-full w-1 -translate-x-1/2 rounded-full bg-gradient-to-b from-cyan-500 via-sky-500 to-indigo-500" />
 
-          <div className="space-y-20">
+          <div className="space-y-6 md:space-y-7">
 
             {experiences.map((item, index) => (
 
@@ -113,11 +117,14 @@ export default function Experience() {
                 }`}
               >
 
-                <div className="absolute left-1/2 top-10 -translate-x-1/2 w-6 h-6 rounded-full bg-cyan-500 border-4 border-white shadow-lg" />
+                <div className="absolute left-1/2 top-7 z-20 -translate-x-1/2 w-5 h-5 rounded-full bg-cyan-500 border-4 border-white shadow-lg" />
 
                 <div
                   className="
-                  w-[470px]
+                  relative
+                  z-10
+                  w-full
+                  md:w-[calc(50%-3rem)]
 
                   rounded-3xl
 
@@ -125,7 +132,7 @@ export default function Experience() {
 
                   dark:bg-slate-900
 
-                  p-8
+                  p-5
 
                   shadow-xl
 
@@ -143,19 +150,19 @@ export default function Experience() {
                   "
                 >
 
-                  <h3 className="text-3xl font-bold text-slate-800 dark:text-white">
+                  <h3 className="text-xl font-bold text-slate-800 dark:text-white">
                     {item.title}
                   </h3>
 
-                  <span className="inline-block mt-5 rounded-full bg-cyan-100 px-5 py-2 font-semibold text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300">
+                  <span className="inline-block mt-3 rounded-full bg-cyan-100 px-4 py-1.5 text-xs font-semibold text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300">
                     {item.period}
                   </span>
 
-                  <p className="mt-4 font-semibold text-indigo-600 dark:text-cyan-400">
+                  <p className="mt-2 text-sm font-semibold text-indigo-600 dark:text-cyan-400">
                     {item.place}
                   </p>
 
-                  <p className="mt-6 leading-8 text-slate-600 dark:text-slate-300">
+                  <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
                     {item.description}
                   </p>
 

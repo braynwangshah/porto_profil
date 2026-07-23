@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 const projects = [
@@ -60,7 +61,7 @@ export default async function ProjectDetailPage({
       <div className="px-6 py-8 md:px-16 md:py-12">
         {/* Tombol kembali */}
         <Link
-          href="/porto"
+          href="/fadhil/porto"
           className="anim-fade-up inline-flex items-center gap-2 text-sm font-light text-neutral-400 transition duration-300 hover:text-white hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.6)]"
         >
           ← Kembali ke Portfolio
@@ -72,9 +73,11 @@ export default async function ProjectDetailPage({
         >
           {/* Gambar besar */}
           <div className="overflow-hidden rounded-2xl border border-neutral-800 transition duration-300 hover:border-neutral-600 hover:shadow-[0_10px_40px_rgba(255,255,255,0.08)]">
-            <img
+            <Image
               src={project.image}
               alt={project.title}
+              width={900}
+              height={1200}
               className="w-full object-cover"
             />
           </div>
@@ -99,7 +102,7 @@ export default async function ProjectDetailPage({
               ))}
             </div>
 
-            <Link href="/contact">
+            <Link href="/fadhil/contact">
               <button className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition duration-300 hover:bg-neutral-200 hover:shadow-[0_0_25px_rgba(255,255,255,0.4)] active:scale-95">
                 Tertarik? Hubungi Saya
               </button>

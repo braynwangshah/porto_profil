@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const projects = [
   {
@@ -125,13 +126,15 @@ export default function PortoPage() {
         {projects.map((project, index) => (
           <Link
             key={project.id}
-            href={`/porto/${project.id}`}
+            href={`/fadhil/porto/${project.id}`}
             className="anim-fade-up group relative block aspect-[3/4] overflow-hidden rounded-2xl bg-neutral-900"
             style={{ animationDelay: `${0.08 * index}s` }}
           >
-            <img
+            <Image
               src={project.image}
               alt={project.title}
+              fill
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
               className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-110"
             />
 

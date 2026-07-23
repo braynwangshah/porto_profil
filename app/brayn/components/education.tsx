@@ -23,7 +23,11 @@ export default function Education() {
     <section
       id="education"
       className="
-      py-28
+      flex
+      min-h-[calc(100vh-5rem)]
+      scroll-mt-20
+      items-center
+      py-16
       px-6
 
       bg-slate-50
@@ -37,17 +41,17 @@ export default function Education() {
 
         {/* Title */}
 
-        <div className="text-center mb-24">
+        <div className="text-center mb-10">
 
           <p className="text-indigo-600 dark:text-cyan-400 font-semibold uppercase tracking-[5px]">
             Education
           </p>
 
-          <h2 className="mt-4 text-5xl font-black text-slate-900 dark:text-white">
+          <h2 className="mt-3 text-4xl font-black text-slate-900 dark:text-white md:text-5xl">
             Riwayat Pendidikan
           </h2>
 
-          <p className="mt-5 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
+          <p className="mt-4 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
             Perjalanan pendidikan yang membentuk kemampuan akademik,
             logika berpikir, serta keterampilan saya dalam dunia teknologi.
           </p>
@@ -84,7 +88,7 @@ export default function Education() {
               key={index}
               className={`
                 relative
-                mb-24
+                mb-8
                 flex
                 items-center
 
@@ -136,7 +140,7 @@ export default function Education() {
                 border-slate-200
                 dark:border-slate-800
 
-                p-8
+                p-6
 
                 shadow-xl
 
@@ -157,7 +161,7 @@ export default function Education() {
                 `}
               >
 
-                <h3 className="text-3xl font-bold text-slate-900 dark:text-white">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
                   {item.school}
                 </h3>
 
@@ -170,7 +174,7 @@ export default function Education() {
                 <div
                   className="
                   inline-block
-                  mt-6
+                  mt-4
 
                   px-5
                   py-2

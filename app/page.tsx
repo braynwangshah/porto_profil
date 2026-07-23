@@ -1,8 +1,44 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import Navbar from "@/app/components/navbar";
 import LikeButton from "@/app/components/LikeButton";
 
+const teamCards = ["brayn", "dimas", "fadhil"];
+
 export default function Home() {
+  const [teamLikes, setTeamLikes] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    const readLikes = () => {
+      const nextLikes: Record<string, number> = {};
+
+      teamCards.forEach((cardId) => {
+        const storedLikes = localStorage.getItem(`total_likes_${cardId}`);
+        nextLikes[cardId] = storedLikes ? parseInt(storedLikes, 10) : 0;
+      });
+
+      setTeamLikes(nextLikes);
+    };
+
+    readLikes();
+
+    const handleLikeUpdated = () => {
+      readLikes();
+    };
+
+    window.addEventListener("team-like-updated", handleLikeUpdated);
+
+    return () => {
+      window.removeEventListener("team-like-updated", handleLikeUpdated);
+    };
+  }, []);
+
+  const maxLikes = Math.max(0, ...teamCards.map((cardId) => teamLikes[cardId] ?? 0));
+  const isMostLiked = (cardId: string) => (teamLikes[cardId] ?? 0) > 0 && teamLikes[cardId] === maxLikes;
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#09090B] text-white">
 
@@ -59,14 +95,22 @@ export default function Home() {
           </div>
 
           <div className="pt-10">
-            <img
+            <Image
               src="/brayn.jpg"
               alt="Brayn"
+              width={160}
+              height={160}
               className="mx-auto h-40 w-40 rounded-full border-4 border-cyan-400 object-cover shadow-[0_0_35px_rgba(34,211,238,.35)] transition duration-500 group-hover:scale-105"
             />
           </div>
 
           <div className="px-8 pt-8 text-center">
+            {isMostLiked("brayn") && (
+              <p className="mb-2 text-sm font-bold text-cyan-300">
+                Proyek Terpopuler!
+              </p>
+            )}
+
             <h2 className="text-3xl font-bold">
               Brayn
             </h2>
@@ -95,14 +139,22 @@ export default function Home() {
           </div>
 
           <div className="pt-10">
-            <img
+            <Image
               src="/fotodimas.png"
               alt="Dimas"
+              width={160}
+              height={160}
               className="mx-auto h-40 w-40 rounded-full border-4 border-green-400 object-cover shadow-[0_0_35px_rgba(74,222,128,.35)] transition duration-500 group-hover:scale-105"
             />
           </div>
 
           <div className="px-8 pt-8 text-center">
+            {isMostLiked("dimas") && (
+              <p className="mb-2 text-sm font-bold text-green-300">
+                Proyek Terpopuler!
+              </p>
+            )}
+
             <h2 className="text-3xl font-bold">
               Dimas
             </h2>
@@ -140,14 +192,22 @@ export default function Home() {
           </div>
 
           <div className="pt-10">
-            <img
+            <Image
               src="/fadhil.jpg"
               alt="Fadhil"
+              width={160}
+              height={160}
               className="mx-auto h-40 w-40 rounded-full border-4 border-purple-400 object-cover shadow-[0_0_35px_rgba(168,85,247,.35)] transition duration-500 group-hover:scale-105"
             />
           </div>
 
           <div className="px-8 pt-8 text-center">
+            {isMostLiked("fadhil") && (
+              <p className="mb-2 text-sm font-bold text-purple-300">
+                Proyek Terpopuler!
+              </p>
+            )}
+
             <h2 className="text-3xl font-bold">
               Fadhil
             </h2>

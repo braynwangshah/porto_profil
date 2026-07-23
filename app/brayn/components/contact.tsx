@@ -8,7 +8,11 @@ export default function Contact() {
     <section
       id="contact"
       className="
-        py-32
+        flex
+        min-h-[calc(100vh-5rem)]
+        scroll-mt-20
+        items-center
+        py-16
         bg-gradient-to-br
         from-slate-50
         via-white
@@ -44,9 +48,9 @@ export default function Contact() {
 
           <h2
             className="
-              mt-6
-              text-5xl
-              md:text-6xl
+              mt-4
+              text-4xl
+              md:text-5xl
               font-black
               text-slate-900
               dark:text-white
@@ -57,11 +61,10 @@ export default function Contact() {
 
           <p
             className="
-              mt-6
+              mt-4
               max-w-3xl
               mx-auto
-              text-lg
-              leading-8
+              leading-7
               text-slate-600
               dark:text-slate-400
             "
@@ -77,12 +80,12 @@ export default function Contact() {
 
         <div
           className="
-            mt-20
+            mt-10
             grid
             lg:grid-cols-2
             gap-10
 
-            rounded-[35px]
+            rounded-3xl
 
             bg-white/80
             dark:bg-slate-900/80
@@ -95,7 +98,7 @@ export default function Contact() {
 
             shadow-2xl
 
-            p-10
+            p-8
           "
         >
 
@@ -103,16 +106,16 @@ export default function Contact() {
 
           <div>
 
-            <h3 className="text-3xl font-bold">
+            <h3 className="text-2xl font-bold">
               Informasi Kontak
             </h3>
 
-            <p className="mt-5 leading-8 text-slate-600 dark:text-slate-400">
+            <p className="mt-4 leading-7 text-slate-600 dark:text-slate-400">
               Jangan ragu menghubungi saya apabila Anda memiliki pertanyaan,
               ingin berkolaborasi, ataupun berdiskusi mengenai sebuah proyek.
             </p>
 
-            <div className="mt-10 space-y-5">
+            <div className="mt-6 space-y-3">
 
               {/* EMAIL */}
 
@@ -139,8 +142,8 @@ export default function Contact() {
   <div
     className="
       flex
-      h-14
-      w-14
+      h-12
+      w-12
       items-center
       justify-center
 
@@ -190,8 +193,8 @@ export default function Contact() {
                 <div
                   className="
                     flex
-                    h-14
-                    w-14
+                    h-12
+                    w-12
                     items-center
                     justify-center
 
@@ -235,8 +238,8 @@ export default function Contact() {
                 <div
                   className="
                     flex
-                    h-14
-                    w-14
+                    h-12
+                    w-12
                     items-center
                     justify-center
 
@@ -271,7 +274,7 @@ export default function Contact() {
 
           <div className="flex flex-col justify-center">
 
-            <div className="space-y-5">
+            <div className="space-y-4">
 
               {/* GITHUB */}
 
@@ -290,7 +293,7 @@ export default function Contact() {
                   border-slate-200
                   dark:border-slate-700
 
-                  p-5
+                  p-4
 
                   transition-all
                   duration-300
