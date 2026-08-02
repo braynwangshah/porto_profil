@@ -5,35 +5,66 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Navbar from "@/app/components/navbar";
 import LikeButton from "@/app/components/LikeButton";
+import CommentModal from "@/app/brayn/components/CommentModal";
+import { MessageCircle } from "lucide-react";
 
 const teamCards = ["brayn", "dimas", "fadhil"];
 
 export default function Home() {
   const [teamLikes, setTeamLikes] = useState<Record<string, number>>({});
+  const [teamComments, setTeamComments] = useState<Record<string, number>>({});
+  const [openComment, setOpenComment] = useState(false);
+  const [selectedUser, setSelectedUser] = useState("");
+  const handleOpenComment = (user: string) => {
+  setSelectedUser(user);
+  setOpenComment(true);
+};
 
   useEffect(() => {
     const readLikes = () => {
-      const nextLikes: Record<string, number> = {};
+  const nextLikes: Record<string, number> = {};
+  const nextComments: Record<string, number> = {};
 
-      teamCards.forEach((cardId) => {
-        const storedLikes = localStorage.getItem(`total_likes_${cardId}`);
-        nextLikes[cardId] = storedLikes ? parseInt(storedLikes, 10) : 0;
-      });
+  teamCards.forEach((cardId) => {
+    // Jumlah Like
+    const storedLikes = localStorage.getItem(`total_likes_${cardId}`);
+    nextLikes[cardId] = storedLikes ? parseInt(storedLikes, 10) : 0;
 
-      setTeamLikes(nextLikes);
-    };
+    // Jumlah Komentar
+    const storedComments = localStorage.getItem(`comments-${cardId}`);
+
+    if (storedComments) {
+      try {
+        nextComments[cardId] = JSON.parse(storedComments).length;
+      } catch {
+        nextComments[cardId] = 0;
+      }
+    } else {
+      nextComments[cardId] = 0;
+    }
+  });
+
+  setTeamLikes(nextLikes);
+  setTeamComments(nextComments);
+};
 
     readLikes();
 
-    const handleLikeUpdated = () => {
-      readLikes();
-    };
+const handleLikeUpdated = () => {
+  readLikes();
+};
 
-    window.addEventListener("team-like-updated", handleLikeUpdated);
+const handleCommentUpdated = () => {
+  readLikes();
+};
 
-    return () => {
-      window.removeEventListener("team-like-updated", handleLikeUpdated);
-    };
+window.addEventListener("team-like-updated", handleLikeUpdated);
+window.addEventListener("team-comment-updated", handleCommentUpdated);
+
+return () => {
+  window.removeEventListener("team-like-updated", handleLikeUpdated);
+  window.removeEventListener("team-comment-updated", handleCommentUpdated);
+};
   }, []);
 
   const maxLikes = Math.max(0, ...teamCards.map((cardId) => teamLikes[cardId] ?? 0));
@@ -66,23 +97,35 @@ export default function Home() {
       
 
       {/* Hero */}
-      <section className="relative z-10 mx-auto max-w-6xl px-8 pt-24 text-center">
+      <section className="relative z-10 mx-auto max-w-6xl px-8 pt-20 text-center">
 
-        <h1 className="text-6xl font-black leading-tight lg:text-7xl">
-          Meet Our
-          <br />
-          <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Development Team
-          </span>
-        </h1>
+  <h1 className="text-6xl font-black leading-tight lg:text-7xl">
+    Meet Our
+    <br />
+    <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
+      Development Team
+    </span>
+  </h1>
 
-        <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-gray-400">
-          Pilih anggota tim untuk melihat profile, portfolio,
-          maupun contact yang telah dibuat menggunakan
-          Next.js dan Tailwind CSS.
-        </p>
+  <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-400">
+    Pilih anggota tim untuk melihat profile, portfolio,
+    maupun contact yang telah dibuat menggunakan
+    Next.js dan Tailwind CSS.
+  </p>
 
-      </section>
+  <div className="mt-7">
+    <Link
+      href="/blog"
+      className="group inline-flex items-center gap-3 rounded-xl border border-cyan-400/40 bg-cyan-500/10 px-6 py-3 font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_25px_rgba(34,211,238,0.45)]"
+    >
+      📚 Kunjungi blog
+      <span className="transition-transform duration-300 group-hover:translate-x-1">
+        →
+      </span>
+    </Link>
+  </div>
+
+</section>
 
       {/* Cards */}
       <section className="relative z-10 mx-auto mt-20 flex max-w-7xl flex-wrap justify-center gap-10 px-8 pb-24">
@@ -90,9 +133,19 @@ export default function Home() {
         {/* ================= Brayn ================= */}
         <div className="group relative w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-cyan-400/50 hover:bg-white/10">
 
-          <div className="absolute top-4 right-4 z-20">
-            <LikeButton cardId="brayn" />
-          </div>
+          <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+        <LikeButton cardId="brayn" />
+
+        <button
+        onClick={() => handleOpenComment("brayn")}
+        className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 transition hover:bg-cyan-500"
+        >
+        <MessageCircle size={18} />
+        <span className="text-sm font-semibold">
+        {teamComments["brayn"] ?? 0}
+        </span>
+        </button>
+        </div>
 
           <div className="pt-10">
             <Image
@@ -134,9 +187,19 @@ export default function Home() {
         {/* ================= Dimas ================= */}
         <div className="group relative w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-green-400/50 hover:bg-white/10">
 
-          <div className="absolute top-4 right-4 z-20">
-            <LikeButton cardId="dimas" />
-          </div>
+          <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+  <LikeButton cardId="dimas" />
+
+  <button
+  onClick={() => handleOpenComment("dimas")}
+  className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 transition hover:bg-green-500"
+>
+  <MessageCircle size={18} />
+  <span className="text-sm font-semibold">
+    {teamComments["dimas"] ?? 0}
+  </span>
+</button>
+</div>
 
           <div className="pt-10">
             <Image
@@ -187,9 +250,19 @@ export default function Home() {
         {/* ================= Fadhil ================= */}
         <div className="group relative w-80 overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl transition duration-500 hover:-translate-y-3 hover:border-purple-400/50 hover:bg-white/10">
 
-          <div className="absolute top-4 right-4 z-20">
-            <LikeButton cardId="fadhil" />
-          </div>
+          <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
+  <LikeButton cardId="fadhil" />
+
+  <button
+  onClick={() => handleOpenComment("fadhil")}
+  className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-2 transition hover:bg-purple-500"
+>
+  <MessageCircle size={18} />
+  <span className="text-sm font-semibold">
+    {teamComments["fadhil"] ?? 0}
+  </span>
+</button>
+</div>
 
           <div className="pt-10">
             <Image
@@ -246,6 +319,11 @@ export default function Home() {
         </div>
 
       </section>
+      <CommentModal
+      open={openComment}
+      onClose={() => setOpenComment(false)}
+      name={selectedUser}
+      />
       <Navbar />
     </main>
   );
