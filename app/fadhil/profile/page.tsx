@@ -89,7 +89,7 @@ export default function ProfilePage() {
               </li>
             </ul>
 
-            <Link href="/contact">
+            <Link href="/fadhil/contact">
               <button className="rounded-full bg-slate-900 px-5 py-2 text-white text-sm hover:bg-slate-700 transition">
                 Contact
               </button>
