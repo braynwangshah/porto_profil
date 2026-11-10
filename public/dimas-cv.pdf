@@ -1,0 +1,77 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /R 4 0 R /B 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+endobj
+6 0 obj
+<< /Length 3479 >>
+stream
+0.07 0.07 0.06 rg
+0 0 595 842 re f
+1 1 1 rg
+0.816 1.000 0.443 rg BT /B 27 Tf 48 790 Td (DIMAS IMAN ISMAIL) Tj ET
+0.533 0.533 0.533 rg BT /B 10 Tf 48 774 Td (DEVELOPER & DIGITAL CREATIVE) Tj ET
+0.333 0.333 0.333 rg BT /R 10 Tf 48 758 Td (Indonesia  |  +62 821 9455 9594) Tj ET
+0.333 0.333 0.333 rg BT /R 10 Tf 48 742 Td (dimas.makassar.2020@gmail.com) Tj ET
+0.333 0.333 0.333 rg BT /R 10 Tf 48 722 Td (github.com/lelegoreng0926  |  instagram.com/d_yimas) Tj ET
+0.067 0.067 0.067 rg BT /B 11 Tf 48 719 Td (PROFILE) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 703 Td (Software development student at SMK Telkom Makassar interested in building) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 687 Td (useful digital experiences across web and mobile development, software) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 669 Td (engineering, and UI/UX design.) Tj ET
+0.067 0.067 0.067 rg BT /B 11 Tf 48 666 Td (EDUCATION) Tj ET
+0.910 0.906 0.886 rg BT /B 12 Tf 48 650 Td (SMK Telkom Makassar) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 632 Td (Rekayasa Perangkat Lunak \(RPL\)) Tj ET
+0.067 0.067 0.067 rg BT /B 11 Tf 48 629 Td (SKILLS) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 613 Td (Frontend  |  HTML, CSS, JavaScript, React, Next.js, Tailwind CSS) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 597 Td (Backend  |  Laravel) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 581 Td (Mobile  |  Kotlin, Jetpack Compose, Android) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 565 Td (Database  |  MySQL, Supabase) Tj ET
+0.910 0.906 0.886 rg BT /R 10 Tf 48 547 Td (UI/UX  |  Figma      Tools  |  GitHub) Tj ET
+0.067 0.067 0.067 rg BT /B 11 Tf 48 540 Td (SELECTED PROJECTS) Tj ET
+0.910 0.906 0.886 rg BT /B 12 Tf 48 524 Td (01  Matrix Company Profile) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 508 Td (Responsive company website for a professional brand presence.) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 499 Td (Next.js, Tailwind CSS  |  matrixcompanyprofile.com) Tj ET
+0.910 0.906 0.886 rg BT /B 12 Tf 48 483 Td (02  Personal Portfolio) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 467 Td (Contemporary personal portfolio designed with AI for the web.) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 458 Td (AI, Next.js, Tailwind CSS  |  portofllai.lovable.app) Tj ET
+0.910 0.906 0.886 rg BT /B 12 Tf 48 442 Td (03  RMSTORE Inventory) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 426 Td (Roblox inventory website with a modern interface and Supabase data.) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 417 Td (React, Supabase, TypeScript  |  rmstore.vercel.app) Tj ET
+0.910 0.906 0.886 rg BT /B 12 Tf 48 401 Td (04  BOTTINGKU) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 385 Td (Mobile app concept for Makassar traditional wedding planning.) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 376 Td (Kotlin, Jetpack Compose, Android  |  Figma project) Tj ET
+0.910 0.906 0.886 rg BT /B 12 Tf 48 360 Td (05  BelajarKu) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 344 Td (Digital learning experience for lessons, exercises, and study info.) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 326 Td (Next.js, Tailwind CSS  |  Figma project) Tj ET
+0.067 0.067 0.067 rg BT /B 11 Tf 48 322 Td (CERTIFICATES) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 306 Td (JavaScript Essentials 2 - Cisco Networking Academy \(2026\)) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 290 Td (UI/UX Design - DevForger UC Makassar \(2025\)) Tj ET
+0.910 0.906 0.886 rg BT /R 9 Tf 48 274 Td (Digital Marketing Training Program - Telkom DigiUp \(2025\)) Tj ET
+0.816 1 0.443 rg 48 820 44 3 re f
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000249 00000 n 
+0000000346 00000 n 
+0000000448 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3979
+%%EOF

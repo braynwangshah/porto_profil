@@ -1,10 +1,61 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 /* Aktifkan dark mode berdasarkan class */
 @custom-variant dark (&:where(.dark, .dark *));
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+}
+
+.cv-page {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.cv-kicker {
+  color: rgb(255 255 255 / 42%);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.cv-marquee__track {
+  width: max-content;
+  animation: cv-marquee 28s linear infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.cv-tech-track {
+  animation: cv-tech-scroll 38s linear infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.cv-tech-icon {
+  filter: grayscale(1);
+}
+
+.group\/tech:hover .cv-tech-icon {
+  color: var(--tech-color);
+  filter: grayscale(0);
+}
+
+@keyframes cv-tech-scroll {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes cv-marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .cv-marquee__track, .cv-tech-track { animation: none; }
+  .cv-page *, .cv-page *::before, .cv-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 body {

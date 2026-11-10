@@ -251,6 +251,13 @@ export default function Home() {
               Portfolio
             </Link>
 
+            <Link
+              href="/dimas/cv"
+              className="rounded-2xl border border-green-500 py-3 text-center font-semibold transition hover:bg-green-500"
+            >
+              CV
+            </Link>
+
           </div>
 
         </div>

@@ -7,8 +7,15 @@ import FallingEffects from "../components/falling-effects";
 import { EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 
+type PortfolioProject = {
+  id: number;
+  judul: string;
+  teknologi: string;
+  selesai: boolean;
+};
+
 export default function Porto() {
-  const [proyek, setProyek] = useState<any[]>([]);
+  const [proyek, setProyek] = useState<PortfolioProject[]>([]);
   const [loadingProyek, setLoadingProyek] = useState(true);
 
   const certificates = [
@@ -73,7 +80,6 @@ export default function Porto() {
 
       {/* Animasi salju & bunga sakura */}
       <FallingEffects />
-
       {/* Back Button */}
       <Link
         href="/"
