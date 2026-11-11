@@ -19,13 +19,13 @@ const projects = [
   { name: "BelajarKu", type: "Learning website", image: "/bljr.png", description: "A digital learning experience that brings lessons, exercises, and study information together.", stack: "Next.js · Tailwind CSS", href: "https://www.figma.com/design/tn62vFE8i3imnLXGDGTbde/BelajarKU?node-id=0-1&t=tpAcmBtRljJPKIMu-1" },
 ];
 
-const skills = [
-  ["Frontend", "HTML · CSS · JavaScript · React · Next.js · Tailwind CSS"],
-  ["Backend", "Laravel"],
-  ["Mobile", "Kotlin · Jetpack Compose · Android"],
-  ["Database", "MySQL · Supabase"],
-  ["UI / UX", "Figma"],
-  ["Development tools", "GitHub"],
+const skills: [string, string[]][] = [
+  ["Frontend", ["HTML", "CSS", "JavaScript", "React", "Next.js", "Tailwind CSS"]],
+  ["Backend", ["Laravel"]],
+  ["Mobile", ["Kotlin", "Jetpack Compose", "Android"]],
+  ["Database", ["MySQL", "Supabase"]],
+  ["UI / UX", ["Figma"]],
+  ["Development tools", ["GitHub"]],
 ];
 
 const certificates = [
@@ -70,7 +70,61 @@ const technologies: { name: string; icon: IconType; color: string }[] = [
   { name: "GitHub", icon: FaGithub, color: "#ffffff" },
 ];
 
+const skillIconAliases: Record<string, string> = { HTML: "HTML5", CSS: "CSS3" };
+
 const reveal = { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } };
+const greetings = [
+  { text: "Hello", language: "English" },
+  { text: "Ciao", language: "Italian" },
+  { text: "مرحبا", language: "Arabic" },
+  { text: "你好", language: "Chinese" },
+  { text: "Привет", language: "Russian" },
+  { text: "こんにちは", language: "Japanese" },
+  { text: "안녕하세요", language: "Korean" },
+  { text: "Bonjour", language: "French" },
+  { text: "สวัสดี", language: "Thai" },
+  { text: "Guten Tag", language: "German" },
+];
+
+function updateTechHover(container: HTMLDivElement, pointerX: number, pointerY: number) {
+  const radius = 140;
+  const items = Array.from(container.querySelectorAll<HTMLElement>("[data-tech-item]"));
+
+  items.forEach((item) => {
+    const rect = item.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const deltaX = pointerX - centerX;
+    const deltaY = pointerY - centerY;
+    const distance = Math.hypot(deltaX, deltaY);
+    const strength = Math.max(0, 1 - distance / radius);
+    const color = item.dataset.techColor ?? "#d0ff71";
+    const icon = item.querySelector<HTMLElement>("[data-tech-icon]");
+
+    // Both axes follow the pointer's position, so a cursor between logos can
+    // influence each one in its own direction.
+    item.style.transform = `perspective(500px) translateY(${-5 * strength}px) rotateX(${(deltaY / radius) * -22 * strength}deg) rotateY(${(deltaX / radius) * 22 * strength}deg) scale(${1 + 0.2 * strength})`;
+    item.style.color = `rgba(255, 255, 255, ${0.35 + 0.65 * strength})`;
+    if (icon) {
+      icon.style.color = strength > 0
+        ? `color-mix(in srgb, ${color} ${Math.round(strength * 100)}%, rgba(255, 255, 255, 0.35))`
+        : "rgba(255, 255, 255, 0.35)";
+      icon.style.filter = "none";
+    }
+  });
+}
+
+function resetTechHover(container: HTMLDivElement) {
+  container.querySelectorAll<HTMLElement>("[data-tech-item]").forEach((item) => {
+    item.style.transform = "";
+    item.style.color = "";
+    const icon = item.querySelector<HTMLElement>("[data-tech-icon]");
+    if (icon) {
+      icon.style.color = "";
+      icon.style.filter = "";
+    }
+  });
+}
 
 function ScrollColorWord({
   word,
@@ -133,10 +187,19 @@ function EducationEntry({
 
 export default function DimasCV() {
   const reduceMotion = useReducedMotion();
+  const [introIndex, setIntroIndex] = useState(0);
+  const [introLeaving, setIntroLeaving] = useState(false);
+  const [introVisible, setIntroVisible] = useState(true);
+  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [previewHeight, setPreviewHeight] = useState(0);
   const projectListRef = useRef<HTMLDivElement>(null);
+  const techPointerPosition = useRef({ x: 0, y: 0 });
+  const techFrameRef = useRef<number | null>(null);
+  const techTrackRef = useRef<HTMLDivElement>(null);
+  const techScrollDirection = useRef(1);
+  const techScrollPullVelocity = useRef(0);
   const previewViewportRef = useRef<HTMLDivElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const pointerPosition = useRef({ x: 0, y: 0 });
@@ -148,8 +211,86 @@ export default function DimasCV() {
   const lastFrameTime = useRef<number | null>(null);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  useEffect(() => {
+    let index = 0;
+    let timer: ReturnType<typeof setTimeout>;
+    const showNextGreeting = () => {
+      timer = setTimeout(() => {
+        if (index < greetings.length - 1) {
+          index += 1;
+          setIntroIndex(index);
+          showNextGreeting();
+          return;
+        }
+
+        setIntroLeaving(true);
+      }, reduceMotion ? 150 : 260);
+    };
+
+    showNextGreeting();
+    return () => clearTimeout(timer);
+  }, [reduceMotion]);
+
+  useEffect(() => {
+    let previousScrollY = window.scrollY;
+    let previousScrollTime = performance.now();
+    const updateDirection = () => {
+      const currentScrollY = window.scrollY;
+      const delta = currentScrollY - previousScrollY;
+      const now = performance.now();
+      const elapsed = Math.max(now - previousScrollTime, 8);
+      if (delta !== 0) {
+        techScrollDirection.current = delta > 0 ? 1 : -1;
+        techScrollPullVelocity.current = Math.max(-520, Math.min(520, (delta / elapsed) * 1000 * 0.32));
+      }
+      previousScrollY = currentScrollY;
+      previousScrollTime = now;
+    };
+
+    window.addEventListener("scroll", updateDirection, { passive: true });
+    return () => window.removeEventListener("scroll", updateDirection);
+  }, []);
+
+  useEffect(() => {
+    const track = techTrackRef.current;
+    if (!track || reduceMotion) return;
+
+    let offset = 0;
+    let velocity = 0;
+    let previousTime: number | null = null;
+    let frame = 0;
+
+    const animate = (time: number) => {
+      const elapsed = previousTime === null ? 16.67 : Math.min(time - previousTime, 48);
+      previousTime = time;
+
+      techScrollPullVelocity.current *= Math.exp(-elapsed / 420);
+      const targetVelocity = techScrollDirection.current * 48 + techScrollPullVelocity.current;
+      const easing = 1 - Math.exp(-elapsed / 220);
+      velocity += (targetVelocity - velocity) * easing;
+      offset += velocity * elapsed / 1000;
+
+      const loopWidth = track.scrollWidth / 2;
+      if (loopWidth > 0) {
+        offset = ((offset % loopWidth) + loopWidth) % loopWidth;
+        track.style.transform = `translate3d(${-offset}px, 0, 0)`;
+      }
+
+      frame = requestAnimationFrame(animate);
+    };
+
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [reduceMotion]);
+
+  const animateTechHover = (container: HTMLDivElement) => {
+    updateTechHover(container, techPointerPosition.current.x, techPointerPosition.current.y);
+    techFrameRef.current = requestAnimationFrame(() => animateTechHover(container));
+  };
+
   useEffect(() => () => {
     if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
+    if (techFrameRef.current !== null) cancelAnimationFrame(techFrameRef.current);
     if (hideTimer.current) clearTimeout(hideTimer.current);
   }, []);
 
@@ -253,9 +394,33 @@ export default function DimasCV() {
   const enter = reduceMotion ? {} : { initial: "hidden", whileInView: "visible", viewport: { once: true, amount: 0.15 }, variants: reveal, transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const } };
 
   return (
-    
-    
     <main className="cv-page min-h-screen overflow-hidden bg-[#111110] text-[#f2f0eb] selection:bg-[#d0ff71] selection:text-[#111110]">
+      {introVisible && <motion.div
+        initial={false}
+        animate={{ y: introLeaving ? "-100%" : "0%" }}
+        transition={{ duration: reduceMotion ? 0 : 0.6, ease: [0.76, 0, 0.24, 1] }}
+        onAnimationComplete={() => {
+          if (introLeaving) setIntroVisible(false);
+        }}
+        className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#10110f] text-[#f2f0eb]"
+        aria-label="Welcome intro"
+        aria-live="polite"
+      >
+        <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 size-[min(80vw,680px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d0ff71]/[0.08] blur-[100px]" />
+        <div className="relative flex flex-col items-center px-6 text-center">
+          <div className="grid min-h-28 place-items-center sm:min-h-36">
+              <p
+                key={greetings[introIndex].text}
+                className="text-6xl font-medium tracking-[-0.07em] sm:text-8xl lg:text-9xl"
+                lang={greetings[introIndex].language === "Arabic" ? "ar" : undefined}
+                dir={greetings[introIndex].language === "Arabic" ? "rtl" : undefined}
+              >
+                {greetings[introIndex].text}<span className="text-[#d0ff71]">.</span>
+              </p>
+          </div>
+        </div>
+      </motion.div>}
+
       <div ref={previewRef} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-[70] will-change-transform">
         <motion.div
           ref={previewViewportRef}
@@ -352,12 +517,40 @@ export default function DimasCV() {
               ))}
             </div>
           </div>
-          <motion.div {...enter}><p className="cv-kicker">03 / Skills &amp; tools</p><div className="mt-6 divide-y divide-white/10">{skills.map(([category, tools]) => <div key={category} className="grid gap-2 py-4 sm:grid-cols-[170px_1fr] sm:gap-5"><h3 className="text-sm text-white/45">{category}</h3><p className="text-sm leading-6 text-white/80">{tools}</p></div>)}</div></motion.div>
+          <motion.div {...enter}><p className="cv-kicker">03 / Skills &amp; tools</p><div className="mt-6 divide-y divide-white/10">{skills.map(([category, tools], categoryIndex) => <div key={category} className="grid gap-2 py-4 sm:grid-cols-[170px_1fr] sm:gap-5"><h3 className="text-sm text-white/45">{category}</h3><p className="flex flex-wrap items-center gap-x-2 gap-y-3 text-sm leading-6 text-white/80">{tools.map((tool, index) => {
+            const iconName = skillIconAliases[tool] ?? tool;
+            const technology = technologies.find(({ name }) => name === iconName);
+            const SkillIcon = technology?.icon;
+            const hopSeed = Array.from(tool).reduce((sum, character) => sum + character.charCodeAt(0), 0) + categoryIndex * 17 + index * 31;
+            const hopHeight = 28 + (hopSeed % 18);
+            const hopStyle = {
+              "--skill-hop-height": `-${hopHeight}px`,
+              "--skill-hop-mid": `-${Math.round(hopHeight * 0.58)}px`,
+              "--skill-hop-bounce": `-${Math.max(5, Math.round(hopHeight * 0.2))}px`,
+              "--skill-hop-tilt": `${(hopSeed % 13) - 6}deg`,
+              "--skill-hop-duration": `${720 + (hopSeed % 240)}ms`,
+            } as CSSProperties;
+
+            return <span key={tool} className="inline-flex items-center gap-2"><span className="relative inline-flex cursor-default items-center transition-colors duration-200 hover:text-white" onPointerEnter={(event) => {
+              if (event.pointerType !== "touch") setHoveredSkill(tool);
+            }} onPointerLeave={() => setHoveredSkill(null)}>{tool}{hoveredSkill === tool && SkillIcon && technology && <SkillIcon key={`icon-${tool}`} aria-hidden="true" className="skill-pop skill-pop--active absolute bottom-full left-1/2 z-20 text-xl" style={{ ...hopStyle, color: technology.color }} />}</span>{index < tools.length - 1 && <span aria-hidden="true" className="text-white/25">·</span>}</span>;
+          })}</p></div>)}</div></motion.div>
         </div>
-        <div className="cv-tech-marquee group overflow-hidden border-t border-white/10 py-8" aria-label="Technologies and tools">
-          <div className="cv-tech-track flex w-max items-center gap-12 pr-12 group-hover:[animation-play-state:paused]">
-            {[...technologies, ...technologies].map(({ name, icon: Icon, color }, index) => <div key={`${name}-${index}`} aria-hidden={index >= technologies.length} className="group/tech flex min-w-max items-center gap-3 text-white/35 transition-colors duration-300 hover:text-white" style={{ "--tech-color": color } as CSSProperties}>
-              <Icon aria-hidden="true" className="cv-tech-icon text-3xl transition duration-300 group-hover/tech:scale-110" />
+        <div className="cv-tech-marquee group overflow-hidden border-t border-white/10 py-8" aria-label="Technologies and tools" onPointerEnter={(event) => {
+          if (event.pointerType === "touch") return;
+          techPointerPosition.current = { x: event.clientX, y: event.clientY };
+          if (techFrameRef.current === null) animateTechHover(event.currentTarget);
+        }} onPointerMove={(event) => {
+          if (event.pointerType === "touch") return;
+          techPointerPosition.current = { x: event.clientX, y: event.clientY };
+        }} onPointerLeave={(event) => {
+          if (techFrameRef.current !== null) cancelAnimationFrame(techFrameRef.current);
+          techFrameRef.current = null;
+          resetTechHover(event.currentTarget);
+        }}>
+          <div ref={techTrackRef} className="cv-tech-track flex w-max items-center gap-12 pr-12">
+            {[...technologies, ...technologies].map(({ name, icon: Icon, color }, index) => <div key={`${name}-${index}`} data-tech-item data-tech-color={color} aria-hidden={index >= technologies.length} className="group/tech flex min-w-max items-center gap-3 text-white/35 transition-[transform,color] duration-150 ease-out will-change-transform">
+              <Icon data-tech-icon aria-hidden="true" className="cv-tech-icon text-3xl transition-[color,opacity] duration-150" />
               <span className="text-sm font-medium tracking-wide">{name}</span>
             </div>)}
           </div>
@@ -413,16 +606,16 @@ export default function DimasCV() {
                     showProjectPreview(index, window.innerWidth / 2, window.innerHeight / 2, false);
                   }
                 }}
-                style={{ opacity: isDimmed ? 0.4 : 1 }}
-                className={`${isActive ? "cursor-none" : "cursor-pointer"} group grid grid-cols-[30px_1fr_20px] items-center gap-3 py-7 transition-[opacity,background-color] duration-300 hover:bg-white/[0.025] sm:grid-cols-[44px_1fr_auto_24px] sm:gap-4 sm:py-9`}
+                style={{ opacity: isDimmed ? 0.38 : 1, filter: isDimmed ? "blur(2px)" : "blur(0px)", backgroundColor: isActive ? "rgba(255,255,255,0.025)" : "transparent" }}
+                className={`${isActive ? "cursor-none" : "cursor-pointer"} group grid grid-cols-[30px_1fr_20px] items-center gap-3 py-7 transition-[opacity,filter,background-color] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:grid-cols-[44px_1fr_auto_24px] sm:gap-4 sm:py-9`}
               >
                 <span className="text-xs tabular-nums text-white/35">0{index + 1}</span>
                 <div>
-                  <h3 className="text-3xl font-medium leading-tight tracking-[-0.045em] transition-colors duration-300 group-hover:text-[#d0ff71] sm:text-5xl lg:text-6xl">{project.name}</h3>
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-white/45 sm:hidden">{project.type}</p>
+                  <h3 className={`text-3xl font-medium leading-tight tracking-[-0.045em] transition-[color,translate,letter-spacing] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-5xl lg:text-6xl ${isActive ? "-translate-x-2 tracking-[-0.02em] text-[#d0ff71]" : "text-[#f2f0eb]"}`}>{project.name}</h3>
+                  <p className={`mt-2 text-[10px] uppercase tracking-[0.18em] text-white/45 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:hidden ${isActive ? "translate-x-2" : ""}`}>{project.type}</p>
                 </div>
-                <p className="hidden justify-self-end text-xs uppercase tracking-[0.16em] text-white/45 sm:block">{project.type}</p>
-                <ArrowUpRight size={19} className="text-white/35 transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#d0ff71]" />
+                <p className={`hidden justify-self-end text-xs uppercase tracking-[0.16em] text-white/45 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:block ${isActive ? "translate-x-2" : ""}`}>{project.type}</p>
+                <ArrowUpRight size={19} className={`transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? "-translate-y-1 translate-x-1 text-[#d0ff71]" : "text-white/35"}`} />
               </motion.a>
             );
           })}
