@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "./brayn/providers/theme-provider";
-import WelcomeIntro from "./components/welcome-intro";
 
 export const metadata: Metadata = {
   title: "CV Digital",
@@ -21,7 +20,6 @@ export default function RootLayout({
     >
       <body>
         <Providers>
-          <WelcomeIntro />
           {children}
         </Providers>
       </body>

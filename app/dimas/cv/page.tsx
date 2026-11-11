@@ -191,6 +191,7 @@ export default function DimasCV() {
   const [introLeaving, setIntroLeaving] = useState(false);
   const [introVisible, setIntroVisible] = useState(true);
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [witaTime, setWitaTime] = useState("--:--:--");
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [previewHeight, setPreviewHeight] = useState(0);
@@ -224,7 +225,7 @@ export default function DimasCV() {
         }
 
         setIntroLeaving(true);
-      }, reduceMotion ? 150 : 260);
+      }, reduceMotion ? 120 : 220);
     };
 
     showNextGreeting();
@@ -249,6 +250,21 @@ export default function DimasCV() {
 
     window.addEventListener("scroll", updateDirection, { passive: true });
     return () => window.removeEventListener("scroll", updateDirection);
+  }, []);
+
+  useEffect(() => {
+    const updateWitaTime = () => {
+      setWitaTime(new Intl.DateTimeFormat(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hourCycle: "h23",
+      }).format(new Date()));
+    };
+
+    updateWitaTime();
+    const timer = window.setInterval(updateWitaTime, 1000);
+    return () => window.clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -472,8 +488,9 @@ export default function DimasCV() {
             <a href="#contact" className="inline-flex items-center gap-3 rounded-full border border-white/20 px-6 py-3.5 text-sm font-medium transition hover:border-white hover:bg-white/5">Contact me <ArrowDownRight size={16} /></a>
           </div>
         </div>
-        <div className="mt-12 flex items-end justify-between border-t border-white/15 pt-5 text-[10px] uppercase tracking-[0.2em] text-white/40 sm:mt-16">
-          <span className="flex items-center gap-2"><MapPin size={13} /> Indonesia</span><a href="#about" className="flex items-center gap-2 transition hover:text-white">Scroll to explore <ArrowDown size={13} /></a>
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-5 text-[10px] uppercase tracking-[0.2em] text-white/40 sm:mt-16">
+          <div className="flex items-center gap-4"><span className="flex items-center gap-2"><MapPin size={13} /> Indonesia</span><time data-no-scramble dateTime={witaTime} aria-label="Waktu lokal" className="tabular-nums">{witaTime}</time></div>
+          <a href="#about" className="flex items-center gap-2 transition hover:text-white">Scroll to explore <ArrowDown size={13} /></a>
         </div>
         <div aria-hidden="true" className="cv-marquee mt-8 overflow-hidden border-b border-white/10 pb-4 text-[clamp(1rem,2vw,1.6rem)] font-medium uppercase tracking-[0.2em] text-white/20"><div className="cv-marquee__track">Design with purpose&nbsp;·&nbsp; Build with curiosity&nbsp;·&nbsp; Design with purpose&nbsp;·&nbsp; Build with curiosity&nbsp;·&nbsp;</div></div>
       </section>
@@ -525,10 +542,9 @@ export default function DimasCV() {
             const hopHeight = 28 + (hopSeed % 18);
             const hopStyle = {
               "--skill-hop-height": `-${hopHeight}px`,
-              "--skill-hop-mid": `-${Math.round(hopHeight * 0.58)}px`,
               "--skill-hop-bounce": `-${Math.max(5, Math.round(hopHeight * 0.2))}px`,
               "--skill-hop-tilt": `${(hopSeed % 13) - 6}deg`,
-              "--skill-hop-duration": `${720 + (hopSeed % 240)}ms`,
+              "--skill-hop-duration": `${880 + (hopSeed % 240)}ms`,
             } as CSSProperties;
 
             return <span key={tool} className="inline-flex items-center gap-2"><span className="relative inline-flex cursor-default items-center transition-colors duration-200 hover:text-white" onPointerEnter={(event) => {
