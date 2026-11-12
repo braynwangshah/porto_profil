@@ -2,8 +2,10 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 export default function BackFaceButton({ onClick }: { onClick: () => void }) {
+  const { t } = useLanguage();
   const reduceMotion = useReducedMotion();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const ringRef = useRef<SVGSVGElement>(null);
@@ -210,13 +212,13 @@ export default function BackFaceButton({ onClick }: { onClick: () => void }) {
               <path id="back-face-circle" d="M90,90 m-64,0 a64,64 0 1,1 128,0 a64,64 0 1,1 -128,0" />
             </defs>
             <text fill="currentColor" fontSize="12" letterSpacing="1.5" fontFamily="Arial, Helvetica, sans-serif">
-              <textPath href="#back-face-circle" startOffset="0" textLength="402" lengthAdjust="spacing">KEMBALI • KEMBALI • KEMBALI • KEMBALI • </textPath>
+              <textPath href="#back-face-circle" startOffset="0" textLength="402" lengthAdjust="spacing">{t.gallery.faceRing}</textPath>
             </text>
           </svg>
           <motion.button
             ref={buttonRef}
             type="button"
-            aria-label="Kembali ke halaman CV"
+            aria-label={t.gallery.back}
             onPointerDown={pauseMagnet}
             onPointerUp={resumeMagnet}
             onPointerCancel={resumeMagnet}

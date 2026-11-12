@@ -1,0 +1,91 @@
+/* The CV hides scrollbars globally; restore the native one only while this
+   route is present so it remains visible and draggable without a mount shift. */
+html:has(.cv-page) {
+  scroll-behavior: auto !important;
+  scroll-padding-top: 1rem;
+  scrollbar-width: auto;
+  -ms-overflow-style: auto;
+  background-color: #111110;
+}
+
+html:has(.cv-page) body {
+  background-color: #111110;
+}
+
+html:has(.cv-page)::-webkit-scrollbar {
+  display: block;
+}
+
+html.lenis,
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Keep the pointer light above the page background and below all CV content. */
+.cv-page {
+  position: relative;
+  z-index: 1;
+  background-color: transparent !important;
+}
+
+.cursor-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--spotlight-alpha, 0);
+  background:
+    radial-gradient(160px circle at var(--x, 50vw) var(--y, 33vh), rgba(208, 255, 113, 0.06), transparent 70%),
+    radial-gradient(650px circle at var(--x, 50vw) var(--y, 33vh), rgba(208, 255, 113, 0.10), transparent 60%);
+  transition: opacity 400ms ease;
+}
+
+.dimas-custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: var(--custom-cursor-opacity, 0);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+html.dimas-custom-cursor,
+html.dimas-custom-cursor * {
+  cursor: none !important;
+}
+
+html.dimas-custom-cursor input,
+html.dimas-custom-cursor textarea,
+html.dimas-custom-cursor select,
+html.dimas-custom-cursor [contenteditable="true"] {
+  cursor: auto !important;
+}
+
+@supports not (mix-blend-mode: difference) {
+  .dimas-custom-cursor-dot {
+    opacity: var(--custom-cursor-opacity, 0);
+  }
+}
+
+html[data-gallery-open="true"] .cursor-spotlight {
+  opacity: calc(var(--spotlight-alpha, 0) * 0.5);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-spotlight {
+    display: none;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .dimas-custom-cursor-dot {
+    display: none;
+  }
+}

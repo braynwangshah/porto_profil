@@ -12,6 +12,9 @@ export default function Providers({
       attribute="class"
       defaultTheme="light"
       enableSystem={false}
+      scriptProps={{
+        type: typeof window === "undefined" ? "text/javascript" : "text/plain",
+      }}
     >
       {children}
     </ThemeProvider>

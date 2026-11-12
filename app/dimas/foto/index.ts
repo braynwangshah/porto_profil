@@ -13,10 +13,19 @@ import sd2 from "./sd-btn-pemda/2.jpg";
 import sd3 from "./sd-btn-pemda/3.jpg";
 import sd4 from "./sd-btn-pemda/4.jpg";
 import sd5 from "./sd-btn-pemda/5.jpg";
+import javascriptEssentials1 from "./sertifikat/javascript-essentials-2/1.webp";
+import uiUxDesign1 from "./sertifikat/ui-ux-design/1.webp";
+import digitalMarketing1 from "./sertifikat/digital-marketing/1.webp";
 
 export const schoolGalleries = {
   "smk-telkom": [smk1, smk2, smk3, smk4, smk5],
   prottab: [prottab1, prottab2, prottab3, prottab4, prottab5],
   "sd-btn-pemda": [sd1, sd2, sd3, sd4, sd5],
+};
+
+export const certificateGalleries = {
+  "javascript-essentials-2": [javascriptEssentials1],
+  "ui-ux-design": [uiUxDesign1],
+  "digital-marketing": [digitalMarketing1],
 };
 

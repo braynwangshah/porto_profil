@@ -1,77 +1,146 @@
 %PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document (opensource)
 1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
+<<
+/F1 2 0 R /F2 3 0 R
+>>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /R 4 0 R /B 5 0 R >> >> /Contents 6 0 R >>
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
 endobj
 4 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+<<
+/A <<
+/S /URI /Type /Action /URI (mailto:dimas.makassar.2020@gmail.com)
+>> /Border [ 0 0 0 ] /Rect [ 158.8849 719.0661 297.0529 729.8661 ] /Subtype /Link /Type /Annot
+>>
 endobj
 5 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>
+<<
+/A <<
+/S /URI /Type /Action /URI (https://github.com/lelegoreng0926)
+>> /Border [ 0 0 0 ] /Rect [ 62.69291 706.0661 171.2509 716.8661 ] /Subtype /Link /Type /Annot
+>>
 endobj
 6 0 obj
-<< /Length 3479 >>
+<<
+/A <<
+/S /URI /Type /Action /URI (https://www.instagram.com/d_yimas)
+>> /Border [ 0 0 0 ] /Rect [ 184.4089 706.0661 279.4309 716.8661 ] /Subtype /Link /Type /Annot
+>>
+endobj
+7 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://portofolio-team-project.vercel.app/dimas/cv)
+>> /Border [ 0 0 0 ] /Rect [ 292.5889 706.0661 464.6419 716.8661 ] /Subtype /Link /Type /Annot
+>>
+endobj
+8 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://www.matrixcompanyprofile.com/)
+>> /Border [ 0 0 0 ] /Rect [ 427.5617 320.8411 532.5827 333.8411 ] /Subtype /Link /Type /Annot
+>>
+endobj
+9 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://portofllai.lovable.app/)
+>> /Border [ 0 0 0 ] /Rect [ 450.0437 288.8411 532.5827 301.8411 ] /Subtype /Link /Type /Annot
+>>
+endobj
+10 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://rmstore.vercel.app/)
+>> /Border [ 0 0 0 ] /Rect [ 458.0627 256.8411 532.5827 269.8411 ] /Subtype /Link /Type /Annot
+>>
+endobj
+11 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://www.figma.com/design/DzN2obyDWvAiiQV1ut4Bbk/BOTTINGKU?node-id=0-1&t=Eu4k6fDOag1Ajplo-1)
+>> /Border [ 0 0 0 ] /Rect [ 473.0657 224.8411 532.5827 237.8411 ] /Subtype /Link /Type /Annot
+>>
+endobj
+12 0 obj
+<<
+/A <<
+/S /URI /Type /Action /URI (https://www.figma.com/design/tn62vFE8i3imnLXGDGTbde/BelajarKU?node-id=0-1&t=tpAcmBtRljJPKIMu-1)
+>> /Border [ 0 0 0 ] /Rect [ 473.0657 192.8411 532.5827 205.8411 ] /Subtype /Link /Type /Annot
+>>
+endobj
+13 0 obj
+<<
+/Annots [ 4 0 R 5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R ] /Contents 17 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 16 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 
+  /Trans <<
+
+>> /Type /Page
+>>
+endobj
+14 0 obj
+<<
+/PageMode /UseNone /Pages 16 0 R /Type /Catalog
+>>
+endobj
+15 0 obj
+<<
+/Author (Dimas Iman Ismail) /CreationDate (D:20261112141338+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20261112141338+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (Curriculum Vitae) /Title (CV - Dimas Iman Ismail) /Trapped /False
+>>
+endobj
+16 0 obj
+<<
+/Count 1 /Kids [ 13 0 R ] /Type /Pages
+>>
+endobj
+17 0 obj
+<<
+/Filter [ /ASCII85Decode /FlateDecode ] /Length 2167
+>>
 stream
-0.07 0.07 0.06 rg
-0 0 595 842 re f
-1 1 1 rg
-0.816 1.000 0.443 rg BT /B 27 Tf 48 790 Td (DIMAS IMAN ISMAIL) Tj ET
-0.533 0.533 0.533 rg BT /B 10 Tf 48 774 Td (DEVELOPER & DIGITAL CREATIVE) Tj ET
-0.333 0.333 0.333 rg BT /R 10 Tf 48 758 Td (Indonesia  |  +62 821 9455 9594) Tj ET
-0.333 0.333 0.333 rg BT /R 10 Tf 48 742 Td (dimas.makassar.2020@gmail.com) Tj ET
-0.333 0.333 0.333 rg BT /R 10 Tf 48 722 Td (github.com/lelegoreng0926  |  instagram.com/d_yimas) Tj ET
-0.067 0.067 0.067 rg BT /B 11 Tf 48 719 Td (PROFILE) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 703 Td (Software development student at SMK Telkom Makassar interested in building) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 687 Td (useful digital experiences across web and mobile development, software) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 669 Td (engineering, and UI/UX design.) Tj ET
-0.067 0.067 0.067 rg BT /B 11 Tf 48 666 Td (EDUCATION) Tj ET
-0.910 0.906 0.886 rg BT /B 12 Tf 48 650 Td (SMK Telkom Makassar) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 632 Td (Rekayasa Perangkat Lunak \(RPL\)) Tj ET
-0.067 0.067 0.067 rg BT /B 11 Tf 48 629 Td (SKILLS) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 613 Td (Frontend  |  HTML, CSS, JavaScript, React, Next.js, Tailwind CSS) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 597 Td (Backend  |  Laravel) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 581 Td (Mobile  |  Kotlin, Jetpack Compose, Android) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 565 Td (Database  |  MySQL, Supabase) Tj ET
-0.910 0.906 0.886 rg BT /R 10 Tf 48 547 Td (UI/UX  |  Figma      Tools  |  GitHub) Tj ET
-0.067 0.067 0.067 rg BT /B 11 Tf 48 540 Td (SELECTED PROJECTS) Tj ET
-0.910 0.906 0.886 rg BT /B 12 Tf 48 524 Td (01  Matrix Company Profile) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 508 Td (Responsive company website for a professional brand presence.) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 499 Td (Next.js, Tailwind CSS  |  matrixcompanyprofile.com) Tj ET
-0.910 0.906 0.886 rg BT /B 12 Tf 48 483 Td (02  Personal Portfolio) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 467 Td (Contemporary personal portfolio designed with AI for the web.) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 458 Td (AI, Next.js, Tailwind CSS  |  portofllai.lovable.app) Tj ET
-0.910 0.906 0.886 rg BT /B 12 Tf 48 442 Td (03  RMSTORE Inventory) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 426 Td (Roblox inventory website with a modern interface and Supabase data.) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 417 Td (React, Supabase, TypeScript  |  rmstore.vercel.app) Tj ET
-0.910 0.906 0.886 rg BT /B 12 Tf 48 401 Td (04  BOTTINGKU) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 385 Td (Mobile app concept for Makassar traditional wedding planning.) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 376 Td (Kotlin, Jetpack Compose, Android  |  Figma project) Tj ET
-0.910 0.906 0.886 rg BT /B 12 Tf 48 360 Td (05  BelajarKu) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 344 Td (Digital learning experience for lessons, exercises, and study info.) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 326 Td (Next.js, Tailwind CSS  |  Figma project) Tj ET
-0.067 0.067 0.067 rg BT /B 11 Tf 48 322 Td (CERTIFICATES) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 306 Td (JavaScript Essentials 2 - Cisco Networking Academy \(2026\)) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 290 Td (UI/UX Design - DevForger UC Makassar \(2025\)) Tj ET
-0.910 0.906 0.886 rg BT /R 9 Tf 48 274 Td (Digital Marketing Training Program - Telkom DigiUp \(2025\)) Tj ET
-0.816 1 0.443 rg 48 820 44 3 re f
-endstream
+Gb!Sn?$G!l&:O;VR&;"7F_%UTT5XB-:5H`0/<T'<kO^<7/JLi]FX;#%pDlh-J--&n$uP?@`'LGpHfr]"bUt68i\)`fr>=JJK@;=P6j)lYLp#t"FeIh:rI(K?L@1uY.(X!UP^l(P%6oF@pI>phNY4$'`H3qlJ5)tOk`eCB7(!b0\$Xh$&\(?'E&oa3>X)d;RUVa55o?FU'7VQXH'Q2X66nF'`"sY-%5b[^9XOrjnRWQD%,*F/TUj%QN.(s!)gK+49KoR6YL_j&&"rb=^)oWPZS5ZMWLUH??SXloI*<gtEXBLrAJg(\Mr6pBQA8ta!E@<XJ4e&Y:h^)uJ5[YgL2!+kYI7&o!jPoo/s1>1,Khhh:S=6e7)H9l!L+.V^Cn_ihG$4;a*:E/U;YO6'M[--5Cu3>`><OeoGSFe9`Ap=<,"lh2[jX68)M+%.XdRhf'kuML801ur\WUH%ts"8TK8P;YIHF#02/[A"d6j$`PGoF_OYUT.MX]T%jDA"]:?5&>q3fPmcV`[9:n]]9@M?fbYs#Hlu@DY+0)24(0:A`>`3?2MXe@ImG]^p.T.ns]DL?`G,M_K0[">6Am(!L"(l#",Ok4oYmo6gTm4">9=Cs"K,.$4.;+H&2fWuo3(BJ$]&hCVVII5"gJOtQ'laXZ`Lc4*USR=8L]!!#%YH7A`&u-bb=@3Eb&VI5fAQ2_;8b.meGOY3#oP&j%)ilDR>!p.//^^urF$lo&PU!\/;ahE:/&\f^RP_b":!?)KsP_9o#0]/`4-FfPjsN+<),7i@2;ltHfSH&/C,G3EP<gW0CQoT+%?X":EZ,>RFt5b0]BZpGu?iVCS1=79[VkLcl[rR66;"]0['pBbCF.kQLY(KOjHXR+q+"a$2>*rjdT^_+,q`hKFT_Ol';iVo`]3AN9So)n)DQ,hqi/L9dNN\</%tj<#_\p2n`DOY'?7,Kj(e1lBYmK*]*9N(;e9u7%JWsYEm"c@D:0.<R^QF'MR-2>VT&g;jh`Q&depe_I*YP585;n;tqnkXQUkE5b*;3,TkX][P`t`pj.=;fD5:/9&LBsJZY>`6+ZXA8o./TV.kL]-lQ&^2;<-?[Pq;lnXjg6>9$haqQr:)B&U1G!"q;2^gP:R]X)Z=l[#ajQq\U8OKdunl,Ol90-fWZYI8%#W4e:@%\e.8c3*h/$J\9"S74p=?4mC9#]%l!G6<%O*j@f+hhlYUm$O=@/E6!(ZX/#1IrjU&.t(F2Rk'$Tg/RgXh<DGZJ+@Jq4)T+Re1IF%+%FN0Pt#NRF47lJp2(J6n[^mR/Gboki4kEVgTY4mdT[JVWMQWg2FbdrUE@-dk6*DBpB3[c0lqa\VV("dF6;NEL4@O7DqPGA\/0N"Ym\I3CDNT-m*$F3b^\Eh)-ba@l&6+9$sVOF":]3\"M85dh99dFP:u`;M`_=[<1;u!\ecteS;N8t^f`FS,$aMOba$2nLgRHXoi\^(odu-:Uu%ZPT.nXJ;7bUBrn0ACg1t2jg&'2kF:4QkM-bm%]WO_eh<E#$i*gWL2W2&#HLJcL_l3Tf`Kc,fX$N</QOhHNq80H)G0k)K=r1N2')oPW^M^3$PWB9CW22Il=SGcU2uQ$g^+RT?pq=m?/=F;E'G'O#ipOCjB8]QuT8!)UMa-o[)[=Ei*fgq&eOeTW`?ffE6BYC!lSI.ed9@UJ*:K>+f7GUs@$*f,I`H##m^qq@bfd?:4fJ=,OInGbgo9.!qU&uYGBJ9P74_C^0kPi5S#,@s><b&m"1:k06#Fh!#?L`9l[$&7/_n:'EDInAA.N/$[NM&M3KNp0[>AHif4qF!S08#!G;N[m]Jsp6SZ1J=ZYCLakOVp(CYue>md3<tWcnYhBbXUGGjtBNrnR<LVfQ'5DW+>a2epH!L\qGibX*!:DK4#-C9-'7[0c8e&$7aNfJb.\7se(E_jO2UK@ah6rgC,?B#Db<`dEQMFan_b](ao[m>Ed([DB*V1"6DL3_K'gm3s3uh"1gXo\$2L['C+@9$!_8[!hSE@HIs-iVA\!O%&i9q/!k,eb)ig<$@:dm,Tj`RYkgI%[fdJjs5$!PV1bG+NVs.FBoa:[(NRao'!X<X2AM:;teV#o'r!,!LM0FB`;c,NO:YC[C2AaPA^3J$KU.!555%^-6IM>/1")tYUh65h(8PF@h3l]^\04_o[<cLc>`Cd%b[D&~>endstream
 endobj
 xref
-0 7
+0 18
 0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000115 00000 n 
-0000000249 00000 n 
-0000000346 00000 n 
-0000000448 00000 n 
+0000000061 00000 n 
+0000000102 00000 n 
+0000000209 00000 n 
+0000000321 00000 n 
+0000000509 00000 n 
+0000000694 00000 n 
+0000000879 00000 n 
+0000001082 00000 n 
+0000001271 00000 n 
+0000001454 00000 n 
+0000001634 00000 n 
+0000001881 00000 n 
+0000002128 00000 n 
+0000002403 00000 n 
+0000002473 00000 n 
+0000002768 00000 n 
+0000002829 00000 n 
 trailer
-<< /Size 7 /Root 1 0 R >>
+<<
+/ID 
+[<1f2068074e69c9522072ddacc53ed47d><1f2068074e69c9522072ddacc53ed47d>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 15 0 R
+/Root 14 0 R
+/Size 18
+>>
 startxref
-3979
+5088
 %%EOF

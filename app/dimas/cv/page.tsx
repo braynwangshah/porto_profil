@@ -2,10 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
+import { motion, useAnimationControls, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { CSSProperties, MouseEvent as ReactMouseEvent } from "react";
 import SchoolGalleryOverlay from "../components/SchoolGalleryOverlay";
+import CustomContextMenu from "../components/CustomContextMenu";
+import { certificateGalleries } from "../foto";
+import { LanguageProvider, useLanguage } from "../i18n/LanguageProvider";
+import LanguageText from "../i18n/LanguageText";
+import { SmoothScrollProvider, useSmoothScroll } from "../components/SmoothScroll";
 import { ArrowDown, ArrowDownRight, ArrowLeft, ArrowUpRight, Download, MapPin } from "lucide-react";
 import type { IconType } from "react-icons";
 import { FaAndroid, FaCss3Alt, FaFigma, FaGithub, FaHtml5, FaJs, FaLaravel, FaReact } from "react-icons/fa";
@@ -13,11 +18,11 @@ import { SiJetpackcompose, SiKotlin, SiMysql, SiNextdotjs, SiSupabase, SiTailwin
 
 
 const projects = [
-  { name: "Matrix Company Profile", type: "Company website", image: "/matrix.png", description: "A modern, responsive company profile built to support a clear and professional brand presence.", stack: "Next.js · Tailwind CSS", href: "https://www.matrixcompanyprofile.com/" },
-  { name: "Personal Portfolio", type: "Digital portfolio", image: "/portoo.png", description: "A contemporary personal portfolio designed with AI and developed for the web.", stack: "AI · Next.js · Tailwind CSS", href: "https://portofllai.lovable.app/" },
-  { name: "RMSTORE Inventory", type: "Inventory system", image: "/rmstore.png", description: "A Roblox inventory website with a modern interface and Supabase powered data.", stack: "React · Supabase · TypeScript", href: "https://rmstore.vercel.app/" },
-  { name: "BOTTINGKU", type: "Mobile application", image: "/bbt.png", description: "A mobile app concept for organizing Makassar traditional wedding processes, with a simple user experience.", stack: "Kotlin · Jetpack Compose · Android", href: "https://www.figma.com/design/DzN2obyDWvAiiQV1ut4Bbk/BOTTINGKU?node-id=0-1&t=Eu4k6fDOag1Ajplo-1" },
-  { name: "BelajarKu", type: "Learning website", image: "/bljr.png", description: "A digital learning experience that brings lessons, exercises, and study information together.", stack: "Next.js · Tailwind CSS", href: "https://www.figma.com/design/tn62vFE8i3imnLXGDGTbde/BelajarKU?node-id=0-1&t=tpAcmBtRljJPKIMu-1" },
+  { name: "Matrix Company Profile", image: "/matrix.png", stack: "Next.js · Tailwind CSS", href: "https://www.matrixcompanyprofile.com/" },
+  { name: "Personal Portfolio", image: "/portoo.png", stack: "AI · Next.js · Tailwind CSS", href: "https://portofllai.lovable.app/" },
+  { name: "RMSTORE Inventory", image: "/rmstore.png", stack: "React · Supabase · TypeScript", href: "https://rmstore.vercel.app/" },
+  { name: "BOTTINGKU", image: "/bbt.png", stack: "Kotlin · Jetpack Compose · Android", href: "https://www.figma.com/design/DzN2obyDWvAiiQV1ut4Bbk/BOTTINGKU?node-id=0-1&t=Eu4k6fDOag1Ajplo-1" },
+  { name: "BelajarKu", image: "/bljr.png", stack: "Next.js · Tailwind CSS", href: "https://www.figma.com/design/tn62vFE8i3imnLXGDGTbde/BelajarKU?node-id=0-1&t=tpAcmBtRljJPKIMu-1" },
 ];
 
 const skills: [string, string[]][] = [
@@ -30,26 +35,28 @@ const skills: [string, string[]][] = [
 ];
 
 const certificates = [
-  ["JavaScript Essentials 2", "Cisco Networking Academy", "2026"],
-  ["UI / UX Design", "DevForger UC Makassar", "2025"],
-  ["Digital Marketing Training Program", "Telkom DigiUp", "2025"],
-];
+  { key: "javascript-essentials-2", title: "JavaScript Essentials 2", issuer: "Cisco Networking Academy", year: "2026" },
+  { key: "ui-ux-design", title: "UI / UX Design", issuer: "DevForger UC Makassar", year: "2025" },
+  { key: "digital-marketing", title: "Digital Marketing Training Program", issuer: "Telkom DigiUp", year: "2025" },
+] as const;
 
-const education = [
+type EducationLevel = "senior" | "junior" | "elementary";
+
+const education: { school: string; level: EducationLevel; major?: string; location: string }[] = [
   {
     school: "SMK Telkom Makassar",
-    level: "Senior High School / Vocational School",
+    level: "senior",
     major: "Rekayasa Perangkat Lunak (RPL)",
     location: "Makassar, Indonesia",
   },
   {
     school: "PROTTAB AMT Makassar",
-    level: "Junior High School",
+    level: "junior",
     location: "Makassar, Indonesia",
   },
   {
     school: "UPT SPF SD Inpres Unggulan BTN Pemda",
-    level: "Elementary School",
+    level: "elementary",
     location: "Makassar, Indonesia",
   },
 ];
@@ -144,9 +151,45 @@ function ScrollColorWord({
 }) {
   const start = rangeStart + (index / count) * (rangeEnd - rangeStart);
   const end = start + Math.min(0.07, (rangeEnd - rangeStart) / count);
-  const color = useTransform(progress, [start, end], ["#777777", "#FFFFFF"]);
+  const wordControls = useAnimationControls();
+  const previousWord = useRef(word);
+  const reduceMotion = useReducedMotion();
 
-  return <motion.span style={{ color }}>{word} </motion.span>;
+  useEffect(() => {
+    if (previousWord.current === word) return;
+    previousWord.current = word;
+
+    if (reduceMotion) {
+      wordControls.set({ opacity: 1, x: 0 });
+      return;
+    }
+
+    wordControls.set({ opacity: 0.55, x: -4 });
+    void wordControls.start({
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.48,
+        delay: Math.min(index * 0.012, 0.5),
+        ease: [0.22, 1, 0.36, 1],
+      },
+    });
+  }, [index, reduceMotion, word, wordControls]);
+
+  const color = useTransform(progress, (value) => {
+    const linear = Math.max(0, Math.min(1, (value - start) / (end - start)));
+    const eased = linear * linear * (3 - 2 * linear);
+    const channel = Math.round(119 + 136 * eased);
+    return `rgb(${channel}, ${channel}, ${channel})`;
+  });
+
+  return (
+    <>
+      <motion.span animate={wordControls} style={{ color }} className="inline-block">
+        {word}
+      </motion.span>{" "}
+    </>
+  );
 }
 
 function EducationEntry({
@@ -162,6 +205,7 @@ function EducationEntry({
   reduceMotion: boolean;
   onOpen: (index: number, trigger: HTMLButtonElement) => void;
 }) {
+  const { t } = useLanguage();
   const colorStart = index * 0.16;
   const schoolColor = useTransform(progress, [colorStart, Math.min(colorStart + 0.6, 1)], ["#777777", "#f2f0eb"]);
 
@@ -179,7 +223,7 @@ function EducationEntry({
           <button type="button" onClick={(event) => { event.preventDefault(); onOpen(index, event.currentTarget); }} className="cursor-pointer text-left transition-colors hover:text-[#d0ff71] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[#d0ff71]">{entry.school}</button>
         </motion.h2>
         <div className="mt-3 flex flex-col gap-1.5 text-xs leading-5 text-white/45 sm:text-sm">
-          <p>{entry.level}</p>
+          <p><LanguageText text={t.academic.levels[entry.level]} /></p>
           {entry.major && <p className="text-white/70">{entry.major}</p>}
           <p>{entry.location}</p>
         </div>
@@ -188,7 +232,11 @@ function EducationEntry({
   );
 }
 
-export default function DimasCV() {
+function DimasCVContent() {
+  const { lang, setLang, t } = useLanguage();
+  const lenis = useSmoothScroll();
+  const greetingsRef = useRef(t.greetings);
+  greetingsRef.current = t.greetings.length ? t.greetings : greetings.map(({ text }) => text);
   const reduceMotion = useReducedMotion();
   const [introIndex, setIntroIndex] = useState(0);
   const [introLeaving, setIntroLeaving] = useState(false);
@@ -198,6 +246,16 @@ export default function DimasCV() {
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
   const [activeSchoolIndex, setActiveSchoolIndex] = useState<number | null>(null);
+  const [activeCertificateKey, setActiveCertificateKey] = useState<(typeof certificates)[number]["key"] | null>(null);
+  const activeCertificateImages = useMemo(() => {
+    if (!activeCertificateKey) return undefined;
+    const certificate = certificates.find((item) => item.key === activeCertificateKey);
+    if (!certificate) return undefined;
+    return certificateGalleries[activeCertificateKey].map((src) => ({
+      src,
+      alt: `${t.gallery.certificateAltPrefix} ${certificate.title} ${certificate.issuer}`,
+    }));
+  }, [activeCertificateKey, lang, t.gallery.certificateAltPrefix]);
   const schoolTriggerRef = useRef<HTMLButtonElement | null>(null);
   const [previewHeight, setPreviewHeight] = useState(0);
   const projectListRef = useRef<HTMLDivElement>(null);
@@ -217,12 +275,34 @@ export default function DimasCV() {
   const lastFrameTime = useRef<number | null>(null);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const handleAnchorScroll = (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    if (!lenis || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const href = event.currentTarget.getAttribute("href");
+    const target = href?.startsWith("#") ? document.getElementById(href.slice(1)) : null;
+    if (!target) return;
+    event.preventDefault();
+    lenis.scrollTo(target, { duration: 1.2 });
+  };
+
+  useEffect(() => {
+    if (!lenis || !window.location.hash) return;
+    let target: HTMLElement | null = null;
+    try {
+      target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+    } catch {
+      return;
+    }
+    if (!target) return;
+    const frame = requestAnimationFrame(() => lenis.scrollTo(target, { immediate: true }));
+    return () => cancelAnimationFrame(frame);
+  }, [lenis]);
+
   useEffect(() => {
     let index = 0;
     let timer: ReturnType<typeof setTimeout>;
     const showNextGreeting = () => {
       timer = setTimeout(() => {
-        if (index < greetings.length - 1) {
+        if (index < greetingsRef.current.length - 1) {
           index += 1;
           setIntroIndex(index);
           showNextGreeting();
@@ -424,25 +504,30 @@ export default function DimasCV() {
           if (introLeaving) setIntroVisible(false);
         }}
         className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#10110f] text-[#f2f0eb]"
-        aria-label="Welcome intro"
+        aria-label={t.introLabel}
         aria-live="polite"
       >
         <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 size-[min(80vw,680px)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d0ff71]/[0.08] blur-[100px]" />
         <div className="relative flex flex-col items-center px-6 text-center">
           <div className="grid min-h-28 place-items-center sm:min-h-36">
               <p
-                key={greetings[introIndex].text}
+                key={t.greetings[introIndex]}
                 className="text-6xl font-medium tracking-[-0.07em] sm:text-8xl lg:text-9xl"
-                lang={greetings[introIndex].language === "Arabic" ? "ar" : undefined}
-                dir={greetings[introIndex].language === "Arabic" ? "rtl" : undefined}
               >
-                {greetings[introIndex].text}<span className="text-[#d0ff71]">.</span>
+                {t.greetings[introIndex]}<span className="text-[#d0ff71]">.</span>
               </p>
           </div>
         </div>
       </motion.div>}
 
-      <SchoolGalleryOverlay schoolIndex={activeSchoolIndex} onClose={() => setActiveSchoolIndex(null)} returnFocusRef={schoolTriggerRef} />
+      <SchoolGalleryOverlay
+        schoolIndex={activeSchoolIndex}
+        images={activeCertificateImages}
+        title={certificates.find((certificate) => certificate.key === activeCertificateKey)?.title}
+        onClose={() => { setActiveSchoolIndex(null); setActiveCertificateKey(null); }}
+        returnFocusRef={schoolTriggerRef}
+      />
+      <CustomContextMenu />
 
       <div ref={previewRef} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-[70] will-change-transform">
         <motion.div
@@ -464,7 +549,7 @@ export default function DimasCV() {
             ))}
           </motion.div>
           <div className="absolute inset-0 grid place-items-center">
-            <span className="grid size-[76px] place-items-center rounded-full bg-[#455ce9] text-sm font-medium text-white shadow-lg sm:size-[88px]">View</span>
+            <span className="grid size-[76px] place-items-center rounded-full bg-[#455ce9] text-sm font-medium text-white shadow-lg sm:size-[88px]"><LanguageText text={t.work.view} /></span>
           </div>
         </motion.div>
       </div>
@@ -475,48 +560,55 @@ export default function DimasCV() {
         ))}
       </div>
 
-      <header className="relative z-20 mx-auto flex max-w-[1440px] items-center justify-between px-5 py-6 sm:px-10 lg:px-16">
-        <Link href="/" className="flex items-center gap-3 text-sm font-semibold tracking-wide"><span className="grid size-9 place-items-center rounded-full bg-[#d0ff71] text-sm font-black text-[#111110]">D</span><span>Dimas Iman Ismail<span className="ml-2 text-white/35">/ CV</span></span></Link>
-        <nav aria-label="Main navigation" className="hidden items-center gap-8 text-xs uppercase tracking-[0.16em] text-white/55 md:flex">
-          <a className="transition hover:text-white" href="#about">About</a><a className="transition hover:text-white" href="#work">Selected work</a><a className="transition hover:text-white" href="#contact">Contact</a>
+      <header className="relative z-20 mx-auto flex max-w-[1440px] items-center justify-between gap-2 px-3 py-6 sm:px-10 lg:px-16">
+        <Link href="/" className="flex min-w-0 items-center gap-2 text-xs font-semibold tracking-wide sm:gap-3 sm:text-sm"><span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#d0ff71] text-sm font-black text-[#111110]">D</span><span className="truncate">Dimas Iman Ismail<span className="ml-2 hidden text-white/35 sm:inline">/ CV</span></span></Link>
+        <nav aria-label={t.nav.label} className="hidden items-center gap-8 text-xs uppercase tracking-[0.16em] text-white/55 md:flex">
+          <a className="transition hover:text-white" href="#about" onClick={handleAnchorScroll}><LanguageText text={t.nav.about} /></a><a className="transition hover:text-white" href="#work" onClick={handleAnchorScroll}><LanguageText text={t.nav.work} /></a><a className="transition hover:text-white" href="#contact" onClick={handleAnchorScroll}><LanguageText text={t.nav.contact} /></a>
         </nav>
-        <Link href="/dimas/porto" className="flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-white/65 transition hover:text-[#d0ff71]"><ArrowLeft size={14} /> Portfolio</Link>
+        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
+          <div role="group" aria-label={t.menu.language} className="relative inline-flex h-8 w-[68px] items-center rounded-full border border-white/15 bg-white/5 p-0.5 text-[10px] font-semibold tracking-wide">
+            <span aria-hidden="true" className={`absolute left-0.5 top-0.5 h-7 w-8 rounded-full bg-[#d0ff71] transition-transform duration-200 ease-out ${lang === "id" ? "translate-x-8" : "translate-x-0"}`} />
+            <button type="button" aria-label={t.language.switchEnglish} aria-pressed={lang === "en"} onClick={() => setLang("en")} className={`relative z-10 grid h-7 w-8 place-items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d0ff71] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111110] ${lang === "en" ? "text-[#111110]" : "text-white/60"}`}>EN</button>
+            <button type="button" aria-label={t.language.switchIndonesian} aria-pressed={lang === "id"} onClick={() => setLang("id")} className={`relative z-10 grid h-7 w-8 place-items-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d0ff71] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111110] ${lang === "id" ? "text-[#111110]" : "text-white/60"}`}>ID</button>
+          </div>
+          <Link href="/dimas/porto" className="flex items-center gap-1.5 whitespace-nowrap text-[10px] uppercase tracking-[0.08em] text-white/65 transition hover:text-[#d0ff71] sm:gap-2 sm:text-xs sm:tracking-[0.12em]"><ArrowLeft size={14} /> <LanguageText text={t.nav.portfolio} /></Link>
+        </div>
       </header>
 
       <section className="relative mx-auto flex min-h-[calc(100svh-80px)] max-w-[1440px] flex-col justify-center px-5 pb-16 pt-14 sm:px-10 sm:pt-20 lg:px-16">
-        <div className="mb-7 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-white/50"><span className="size-2 rounded-full bg-[#d0ff71]" /> Developer &amp; Digital Creative <span className="hidden text-white/25 sm:inline">— Indonesia</span></div>
+        <div className="mb-7 flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-white/50"><span className="size-2 shrink-0 rounded-full bg-[#d0ff71]" /> <LanguageText text={t.hero.subtitle} /></div>
         <motion.h1 initial={reduceMotion ? false : { opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 1, ease: [0.16, 1, 0.3, 1] }} className="relative z-10 text-[clamp(3.5rem,12vw,11.5rem)] font-semibold uppercase leading-[0.79] tracking-[-0.085em]">
           <span className="block">Dimas Iman</span><span className="block text-[#d0ff71]">Ismail<span className="text-white">.</span></span>
         </motion.h1>
         <div className="mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
-          <p className="max-w-lg text-base leading-7 text-white/55 sm:text-lg sm:leading-8">I build thoughtful digital experiences across web, mobile, and interface design — shaped by curiosity, clarity, and care.</p>
+          <p className="max-w-lg text-base leading-7 text-white/55 sm:text-lg sm:leading-8"><LanguageText text={t.hero.description} /></p>
           <div className="flex flex-wrap gap-3">
-            <a href="/dimas-cv.pdf" download className="inline-flex items-center gap-3 rounded-full bg-[#d0ff71] px-6 py-3.5 text-sm font-semibold text-[#111110] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d0ff71]">Download CV <Download size={16} /></a>
-            <a href="#contact" className="inline-flex items-center gap-3 rounded-full border border-white/20 px-6 py-3.5 text-sm font-medium transition hover:border-white hover:bg-white/5">Contact me <ArrowDownRight size={16} /></a>
+            <a href="/dimas-cv.pdf" download className="inline-flex items-center gap-3 rounded-full bg-[#d0ff71] px-6 py-3.5 text-sm font-semibold text-[#111110] transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d0ff71]"><LanguageText text={t.hero.download} /><Download size={16} /></a>
+            <a href="#contact" onClick={handleAnchorScroll} className="inline-flex items-center gap-3 rounded-full border border-white/20 px-6 py-3.5 text-sm font-medium transition hover:border-white hover:bg-white/5"><LanguageText text={t.hero.contact} /><ArrowDownRight size={16} /></a>
           </div>
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-5 text-[10px] uppercase tracking-[0.2em] text-white/40 sm:mt-16">
-          <div className="flex items-center gap-4"><span className="flex items-center gap-2"><MapPin size={13} /> Indonesia</span><time data-no-scramble dateTime={witaTime} aria-label="Waktu lokal" className="tabular-nums">{witaTime}</time></div>
-          <a href="#about" className="flex items-center gap-2 transition hover:text-white">Scroll to explore <ArrowDown size={13} /></a>
+          <div className="flex items-center gap-4"><span className="flex items-center gap-2"><MapPin size={13} /> Indonesia</span><time data-no-scramble dateTime={witaTime} aria-label={t.hero.localTime} className="tabular-nums">{witaTime}</time></div>
+          <a href="#about" onClick={handleAnchorScroll} className="flex items-center gap-2 transition hover:text-white"><LanguageText text={t.hero.scroll} /><ArrowDown size={13} /></a>
         </div>
-        <div aria-hidden="true" className="cv-marquee mt-8 overflow-hidden border-b border-white/10 pb-4 text-[clamp(1rem,2vw,1.6rem)] font-medium uppercase tracking-[0.2em] text-white/20"><div className="cv-marquee__track">Design with purpose&nbsp;·&nbsp; Build with curiosity&nbsp;·&nbsp; Design with purpose&nbsp;·&nbsp; Build with curiosity&nbsp;·&nbsp;</div></div>
+        <div aria-hidden="true" className="cv-marquee mt-8 overflow-hidden border-b border-white/10 pb-4 text-[clamp(1rem,2vw,1.6rem)] font-medium uppercase tracking-[0.2em] text-white/20"><div className="cv-marquee__track"><LanguageText text={`${t.hero.marquee} · ${t.hero.marquee} ·`} /></div></div>
       </section>
 
       <section ref={aboutRef} id="about" className="mx-auto grid max-w-[1440px] gap-12 px-5 py-24 sm:px-10 sm:py-32 lg:grid-cols-[0.65fr_1.35fr] lg:px-16">
         <div>
-          <p className="cv-kicker">01 / A little about me</p>
+          <p className="cv-kicker"><LanguageText text={t.about.section} /></p>
           <h2 className="mt-5 max-w-xs text-5xl font-medium leading-[0.95] tracking-[-0.06em] sm:text-6xl">
-            {[["Curious", "by", "nature."], ["Builder", "by", "choice."]].map((line, lineIndex) => (
-              <span key={line.join("-")} className="block overflow-hidden pb-[0.1em] -mb-[0.1em]">
+            {t.about.heading.map((line, lineIndex) => (
+              <span key={lineIndex} className="block overflow-hidden pb-[0.1em] -mb-[0.1em]">
                 <motion.span
                   initial={{ opacity: 0, y: reduceMotion ? "35%" : "110%" }}
                   animate={aboutHeadingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduceMotion ? "35%" : "110%" }}
                   transition={{ duration: reduceMotion ? 1.4 : 2.8, delay: lineIndex * (reduceMotion ? 0.3 : 0.55), ease: [0.22, 1, 0.36, 1] }}
                   className="block will-change-transform"
                 >
-                  {line.map((word, wordIndex) => {
-                    const index = lineIndex * line.length + wordIndex;
-                    return <ScrollColorWord key={`${word}-${index}`} word={word} index={index} count={6} progress={aboutProgress} rangeStart={0.04} rangeEnd={0.28} />;
+                  {line.split(" ").map((word, wordIndex) => {
+                    const index = lineIndex * 3 + wordIndex;
+                    return <ScrollColorWord key={`about-heading-${index}`} word={word} index={index} count={6} progress={aboutProgress} rangeStart={0.04} rangeEnd={0.28} />;
                   })}
                 </motion.span>
               </span>
@@ -525,23 +617,23 @@ export default function DimasCV() {
         </div>
         <motion.div {...enter} className="grid gap-8 md:grid-cols-[minmax(0,1fr)_230px] md:items-end">
           <p className="max-w-2xl text-xl leading-relaxed sm:text-2xl">
-            {"I’m a software development student at SMK Telkom Makassar, exploring how design and technology can make everyday digital experiences more useful and human. My interests span web and mobile development, software engineering, and UI/UX design.".split(" ").map((word, index, words) => <ScrollColorWord key={`${word}-${index}`} word={word} index={index} count={words.length} progress={aboutProgress} rangeStart={0.22} rangeEnd={0.94} />)}
+            {t.about.paragraph.split(" ").map((word, index, words) => <ScrollColorWord key={`about-paragraph-${index}`} word={word} index={index} count={words.length} progress={aboutProgress} rangeStart={0.22} rangeEnd={0.78} />)}
           </p>
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[230px] overflow-hidden bg-[#272724] md:mx-0"><Image src="/fotodimas.png" alt="Portrait of Dimas Iman Ismail" fill sizes="(max-width: 768px) 80vw, 230px" className="object-cover grayscale transition duration-700 hover:scale-105 hover:grayscale-0" /><span className="absolute bottom-3 left-3 text-[10px] uppercase tracking-[0.2em] text-white/80">Makassar, Indonesia</span></div>
+          <div className="relative mx-auto aspect-[4/5] w-full max-w-[230px] overflow-hidden bg-[#272724] md:mx-0"><Image src="/fotodimas.png" alt={t.about.portraitAlt} fill sizes="(max-width: 768px) 80vw, 230px" className="object-cover grayscale transition duration-700 hover:scale-105 hover:grayscale-0" /><span className="absolute bottom-3 left-3 text-[10px] uppercase tracking-[0.2em] text-white/80">{t.about.location}</span></div>
         </motion.div>
       </section>
 
       <section ref={educationRef} className="border-y border-white/10 bg-[#171716]">
         <div className="mx-auto grid max-w-[1440px] gap-14 px-5 py-20 sm:px-10 sm:py-24 lg:grid-cols-2 lg:px-16">
           <div>
-            <p className="cv-kicker">02 / Academic background</p>
+            <p className="cv-kicker"><LanguageText text={t.academic.section} /></p>
             <div className="mt-7 divide-y divide-white/15 border-y border-white/15">
               {education.map((entry, index) => (
-                <EducationEntry key={entry.school} entry={entry} index={index} progress={educationProgress} reduceMotion={Boolean(reduceMotion)} onOpen={(schoolIndex, trigger) => { schoolTriggerRef.current = trigger; setActiveSchoolIndex(schoolIndex); }} />
+                <EducationEntry key={entry.school} entry={entry} index={index} progress={educationProgress} reduceMotion={Boolean(reduceMotion)} onOpen={(schoolIndex, trigger) => { schoolTriggerRef.current = trigger; setActiveCertificateKey(null); setActiveSchoolIndex(schoolIndex); }} />
               ))}
             </div>
           </div>
-          <motion.div {...enter}><p className="cv-kicker">03 / Skills &amp; tools</p><div className="mt-6 divide-y divide-white/10">{skills.map(([category, tools], categoryIndex) => <div key={category} className="grid gap-2 py-4 sm:grid-cols-[170px_1fr] sm:gap-5"><h3 className="text-sm text-white/45">{category}</h3><p className="flex flex-wrap items-center gap-x-2 gap-y-3 text-sm leading-6 text-white/80">{tools.map((tool, index) => {
+          <motion.div {...enter}><p className="cv-kicker"><LanguageText text={t.skills.section} /></p><div className="mt-6 divide-y divide-white/10">{skills.map(([category, tools], categoryIndex) => <div key={category} className="grid gap-2 py-4 sm:grid-cols-[170px_1fr] sm:gap-5"><h3 className="text-sm text-white/45">{category === "Development tools" ? <LanguageText text={t.skills.developmentTools} /> : category}</h3><p className="flex flex-wrap items-center gap-x-2 gap-y-3 text-sm leading-6 text-white/80">{tools.map((tool, index) => {
             const iconName = skillIconAliases[tool] ?? tool;
             const technology = technologies.find(({ name }) => name === iconName);
             const SkillIcon = technology?.icon;
@@ -559,7 +651,7 @@ export default function DimasCV() {
             }} onPointerLeave={() => setHoveredSkill(null)}>{tool}{hoveredSkill === tool && SkillIcon && technology && <SkillIcon key={`icon-${tool}`} aria-hidden="true" className="skill-pop skill-pop--active absolute bottom-full left-1/2 z-20 text-xl" style={{ ...hopStyle, color: technology.color }} />}</span>{index < tools.length - 1 && <span aria-hidden="true" className="text-white/25">·</span>}</span>;
           })}</p></div>)}</div></motion.div>
         </div>
-        <div className="cv-tech-marquee group overflow-hidden border-t border-white/10 py-8" aria-label="Technologies and tools" onPointerEnter={(event) => {
+        <div className="cv-tech-marquee group overflow-hidden border-t border-white/10 py-8" aria-label={t.skills.marqueeLabel} onPointerEnter={(event) => {
           if (event.pointerType === "touch") return;
           techPointerPosition.current = { x: event.clientX, y: event.clientY };
           if (techFrameRef.current === null) animateTechHover(event.currentTarget);
@@ -581,7 +673,7 @@ export default function DimasCV() {
       </section>
 
       <section id="work" className="mx-auto max-w-[1280px] px-5 py-24 sm:px-10 sm:py-32 lg:px-12">
-        <motion.div {...enter} className="mb-14 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="cv-kicker">04 / Selected work</p><h2 className="mt-5 text-5xl font-medium tracking-[-0.06em] sm:text-7xl">Made with intent<span className="text-[#d0ff71]">.</span></h2></div><p className="max-w-sm text-sm leading-6 text-white/45">A selection of web, mobile, and product design projects. Each one an opportunity to learn by making.</p></motion.div>
+        <motion.div {...enter} className="mb-14 flex flex-col justify-between gap-5 sm:flex-row sm:items-end"><div><p className="cv-kicker"><LanguageText text={t.work.section} /></p><h2 className="mt-5 text-5xl font-medium tracking-[-0.06em] sm:text-7xl"><LanguageText text={t.work.heading} /><span className="text-[#d0ff71]">.</span></h2></div><p className="max-w-sm text-sm leading-6 text-white/45"><LanguageText text={t.work.description} /></p></motion.div>
         <div ref={projectListRef} className="mx-auto max-w-[1040px] divide-y divide-white/15 border-y border-white/15">
           {projects.map((project, index) => {
             const isActive = activeProjectIndex === index;
@@ -594,7 +686,7 @@ export default function DimasCV() {
                 href={project.href}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={`${project.name}, ${project.type}. Open project`}
+                aria-label={`${project.name}, ${t.work.types[index]}. ${t.work.descriptions[index]} ${t.work.openProject}`}
                 data-project-index={index}
                 onPointerEnter={(event) => {
                   if (event.pointerType !== "touch") {
@@ -635,9 +727,9 @@ export default function DimasCV() {
                 <span className="text-xs tabular-nums text-white/35">0{index + 1}</span>
                 <div>
                   <h3 className={`text-3xl font-medium leading-tight tracking-[-0.045em] transition-[color,translate,letter-spacing] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:text-5xl lg:text-6xl ${isActive ? "-translate-x-2 tracking-[-0.02em] text-[#d0ff71]" : "text-[#f2f0eb]"}`}>{project.name}</h3>
-                  <p className={`mt-2 text-[10px] uppercase tracking-[0.18em] text-white/45 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:hidden ${isActive ? "translate-x-2" : ""}`}>{project.type}</p>
+                  <p className={`mt-2 text-[10px] uppercase tracking-[0.18em] text-white/45 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:hidden ${isActive ? "translate-x-2" : ""}`}><LanguageText text={t.work.types[index]} /></p>
                 </div>
-                <p className={`hidden justify-self-end text-xs uppercase tracking-[0.16em] text-white/45 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:block ${isActive ? "translate-x-2" : ""}`}>{project.type}</p>
+                <p className={`hidden justify-self-end text-xs uppercase tracking-[0.16em] text-white/45 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:block ${isActive ? "translate-x-2" : ""}`}><LanguageText text={t.work.types[index]} /></p>
                 <ArrowUpRight size={19} className={`transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${isActive ? "-translate-y-1 translate-x-1 text-[#d0ff71]" : "text-white/35"}`} />
               </motion.a>
             );
@@ -645,13 +737,23 @@ export default function DimasCV() {
         </div>
       </section>
 
-      <section className="bg-[#d0ff71] text-[#111110]"><div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 sm:px-10 sm:py-24 lg:grid-cols-[0.65fr_1.35fr] lg:px-16"><div><p className="text-[10px] uppercase tracking-[0.2em] text-black/55">05 / Certificates</p><h2 className="mt-5 text-4xl font-medium tracking-[-0.06em]">Learning, in practice.</h2></div><div className="divide-y divide-black/20 border-y border-black/20">{certificates.map(([title, issuer, year]) => <div key={title} className="grid gap-1 py-4 sm:grid-cols-[1fr_auto] sm:items-center"><div><h3 className="font-medium">{title}</h3><p className="mt-1 text-sm text-black/55">{issuer}</p></div><span className="text-sm text-black/55">{year}</span></div>)}</div></div></section>
+      <section className="bg-[#d0ff71] text-[#111110]"><div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-20 sm:px-10 sm:py-24 lg:grid-cols-[0.65fr_1.35fr] lg:px-16"><div><p className="text-[10px] uppercase tracking-[0.2em] text-black/55"><LanguageText text={t.certificates.section} /></p><h2 className="mt-5 text-4xl font-medium tracking-[-0.06em]"><LanguageText text={t.certificates.heading} /></h2></div><div className="divide-y divide-black/20 border-y border-black/20">{certificates.map((certificate) => <button key={certificate.key} type="button" onClick={(event) => { schoolTriggerRef.current = event.currentTarget; setActiveSchoolIndex(null); setActiveCertificateKey(certificate.key); }} aria-label={`${t.certificates.view} ${certificate.title} ${certificate.issuer}`} className="grid w-full cursor-pointer gap-1 py-4 text-left transition-colors duration-200 hover:text-[#405520] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#405520] sm:grid-cols-[1fr_auto] sm:items-center"><div><h3 className="font-medium">{certificate.title}</h3><p className="mt-1 text-sm text-black/55">{certificate.issuer}</p></div><span className="text-sm text-black/55">{certificate.year}</span></button>)}</div></div></section>
 
       <footer id="contact" className="mx-auto max-w-[1440px] px-5 pb-28 pt-24 sm:px-10 sm:pb-32 sm:pt-32 lg:px-16">
-        <p className="cv-kicker">06 / Get in touch</p><h2 className="mt-7 max-w-5xl text-[clamp(3.2rem,10vw,9rem)] font-medium uppercase leading-[0.83] tracking-[-0.08em]">Let&apos;s create<br />something <span className="text-[#d0ff71]">great.</span></h2>
-        <div className="mt-12 flex flex-col justify-between gap-8 border-t border-white/15 pt-7 sm:flex-row sm:items-end"><div><p className="text-xs uppercase tracking-[0.18em] text-white/40">Have a project in mind?</p><a href="mailto:dimas.makassar.2020@gmail.com" className="mt-3 inline-flex items-center gap-2 text-lg transition hover:text-[#d0ff71] sm:text-xl">dimas.makassar.2020@gmail.com <ArrowUpRight size={17} /></a></div><div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/55"><a className="transition hover:text-[#d0ff71]" href="https://github.com/lelegoreng0926" target="_blank" rel="noreferrer">GitHub ↗</a><a className="transition hover:text-[#d0ff71]" href="https://www.instagram.com/d_yimas" target="_blank" rel="noreferrer">Instagram ↗</a><a className="transition hover:text-[#d0ff71]" href="tel:+6282194559594">+62 821 9455 9594</a></div></div>
-        <div className="mt-16 flex justify-between border-t border-white/10 pt-5 text-[10px] uppercase tracking-[0.18em] text-white/30"><span>Dimas Iman Ismail</span><Link href="/dimas/porto" className="transition hover:text-white">Back to portfolio ↑</Link></div>
+        <p className="cv-kicker"><LanguageText text={t.contact.section} /></p><h2 className="mt-7 max-w-5xl text-[clamp(3.2rem,10vw,9rem)] font-medium uppercase leading-[0.83] tracking-[-0.08em]"><LanguageText text={t.contact.heading[0]} /><br /><LanguageText text={t.contact.heading[1].split(" ").slice(0, -1).join(" ")} /> <span className="text-[#d0ff71]"><LanguageText text={t.contact.heading[1].split(" ").slice(-1)[0]} /></span></h2>
+        <div className="mt-12 flex flex-col justify-between gap-8 border-t border-white/15 pt-7 sm:flex-row sm:items-end"><div><p className="text-xs uppercase tracking-[0.18em] text-white/40"><LanguageText text={t.contact.prompt} /></p><a href="mailto:dimas.makassar.2020@gmail.com" className="mt-3 inline-flex items-center gap-2 text-lg transition hover:text-[#d0ff71] sm:text-xl">dimas.makassar.2020@gmail.com <ArrowUpRight size={17} /></a></div><div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/55"><a className="transition hover:text-[#d0ff71]" href="https://github.com/lelegoreng0926" target="_blank" rel="noreferrer">GitHub ↗</a><a className="transition hover:text-[#d0ff71]" href="https://www.instagram.com/d_yimas" target="_blank" rel="noreferrer">Instagram ↗</a><a className="transition hover:text-[#d0ff71]" href="tel:+6282194559594">+62 821 9455 9594</a></div></div>
+        <div className="mt-16 flex justify-between border-t border-white/10 pt-5 text-[10px] uppercase tracking-[0.18em] text-white/30"><span>{t.footer.name}</span><Link href="/dimas/porto" className="transition hover:text-white"><LanguageText text={`${t.footer.portfolio} ↑`} /></Link></div>
       </footer>
     </main>
+  );
+}
+
+export default function DimasCV() {
+  return (
+    <LanguageProvider>
+      <SmoothScrollProvider>
+        <DimasCVContent />
+      </SmoothScrollProvider>
+    </LanguageProvider>
   );
 }
