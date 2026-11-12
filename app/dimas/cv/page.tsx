@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
+import SchoolGalleryOverlay from "../components/SchoolGalleryOverlay";
 import { ArrowDown, ArrowDownRight, ArrowLeft, ArrowUpRight, Download, MapPin } from "lucide-react";
 import type { IconType } from "react-icons";
 import { FaAndroid, FaCss3Alt, FaFigma, FaGithub, FaHtml5, FaJs, FaLaravel, FaReact } from "react-icons/fa";
@@ -153,11 +154,13 @@ function EducationEntry({
   index,
   progress,
   reduceMotion,
+  onOpen,
 }: {
   entry: (typeof education)[number];
   index: number;
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
   reduceMotion: boolean;
+  onOpen: (index: number, trigger: HTMLButtonElement) => void;
 }) {
   const colorStart = index * 0.16;
   const schoolColor = useTransform(progress, [colorStart, Math.min(colorStart + 0.6, 1)], ["#777777", "#f2f0eb"]);
@@ -173,7 +176,7 @@ function EducationEntry({
       <span className="pt-1 font-mono text-xs tabular-nums text-[#d0ff71]">0{index + 1}</span>
       <div>
         <motion.h2 style={{ color: reduceMotion ? "#f2f0eb" : schoolColor }} className="text-xl font-medium leading-tight tracking-[-0.04em] sm:text-2xl lg:text-3xl">
-          {entry.school}
+          <button type="button" onClick={(event) => { event.preventDefault(); onOpen(index, event.currentTarget); }} className="cursor-pointer text-left transition-colors hover:text-[#d0ff71] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[#d0ff71]">{entry.school}</button>
         </motion.h2>
         <div className="mt-3 flex flex-col gap-1.5 text-xs leading-5 text-white/45 sm:text-sm">
           <p>{entry.level}</p>
@@ -194,6 +197,8 @@ export default function DimasCV() {
   const [witaTime, setWitaTime] = useState("--:--:--");
   const [activeProjectIndex, setActiveProjectIndex] = useState<number | null>(null);
   const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+  const [activeSchoolIndex, setActiveSchoolIndex] = useState<number | null>(null);
+  const schoolTriggerRef = useRef<HTMLButtonElement | null>(null);
   const [previewHeight, setPreviewHeight] = useState(0);
   const projectListRef = useRef<HTMLDivElement>(null);
   const techPointerPosition = useRef({ x: 0, y: 0 });
@@ -437,6 +442,8 @@ export default function DimasCV() {
         </div>
       </motion.div>}
 
+      <SchoolGalleryOverlay schoolIndex={activeSchoolIndex} onClose={() => setActiveSchoolIndex(null)} returnFocusRef={schoolTriggerRef} />
+
       <div ref={previewRef} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-[70] will-change-transform">
         <motion.div
           ref={previewViewportRef}
@@ -530,7 +537,7 @@ export default function DimasCV() {
             <p className="cv-kicker">02 / Academic background</p>
             <div className="mt-7 divide-y divide-white/15 border-y border-white/15">
               {education.map((entry, index) => (
-                <EducationEntry key={entry.school} entry={entry} index={index} progress={educationProgress} reduceMotion={Boolean(reduceMotion)} />
+                <EducationEntry key={entry.school} entry={entry} index={index} progress={educationProgress} reduceMotion={Boolean(reduceMotion)} onOpen={(schoolIndex, trigger) => { schoolTriggerRef.current = trigger; setActiveSchoolIndex(schoolIndex); }} />
               ))}
             </div>
           </div>
